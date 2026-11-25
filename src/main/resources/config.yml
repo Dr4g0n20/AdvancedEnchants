@@ -2,6 +2,10 @@ general:
   debug: false
   max-enchantments: 10
 
+combat-logging:
+  enabled: true
+  tag-duration-seconds: 15
+
 anvil:
   enabled: true
   remove-prior-work-penalty: true
