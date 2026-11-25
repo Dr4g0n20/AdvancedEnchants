@@ -135,14 +135,25 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
                 }
             }
 
+            if (resource.endsWith("/weapons.yml")) {
+                appendMissingDefaults(file, resource, new String[] {
+                        "contagion", "explosive", "flashbang", "frost", "multi_shot"
+                });
+            }
             if (resource.endsWith("/armour.yml")) {
-                appendMissingArmourDefaults(file, resource);
+                appendMissingDefaults(file, resource, new String[] {
+                        "adrenaline", "rebounding", "resonate", "rumble", "scorching"
+                });
+            }
+            if (resource.endsWith("/tools.yml")) {
+                appendMissingDefaults(file, resource, new String[] {
+                        "fire_hook", "poisoned_hook", "sharpness_hook"
+                });
             }
         }
     }
 
-    private void appendMissingArmourDefaults(java.io.File file, String resource) {
-        String[] addedIds = {"adrenaline", "rebounding", "resonate", "rumble", "scorching"};
+    private void appendMissingDefaults(java.io.File file, String resource, String[] addedIds) {
         org.bukkit.configuration.file.YamlConfiguration existing =
                 org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(file);
         org.bukkit.configuration.ConfigurationSection entries =
