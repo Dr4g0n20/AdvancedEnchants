@@ -52,7 +52,7 @@ public final class WeaponEnchantmentListener implements Listener {
 
         double damage = event.getDamage();
 
-        level = ItemEnchantmentStorage.getLevel(weapon, "curse_of_harmlessness");
+        int level = ItemEnchantmentStorage.getLevel(weapon, "curse_of_harmlessness");
         if (level > 0 && roll(Math.min(0.60D, 0.10D * level))) {
             event.setDamage(0.0D);
             return;
@@ -136,7 +136,7 @@ public final class WeaponEnchantmentListener implements Listener {
                 && victim instanceof Player) {
             shuffleHotbar((Player) victim);
         }
-        int level = ItemEnchantmentStorage.getLevel(weapon, "criticals");
+        level = ItemEnchantmentStorage.getLevel(weapon, "criticals");
         if (level > 0 && isCriticalHit(attacker)) {
             damage += damage * (0.10D * level);
         }
