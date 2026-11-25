@@ -168,21 +168,55 @@ public final class GuidebookService {
         }
     }
 
+    /**
+     * Appends text to the current page where possible instead of creating a
+     * new page for every line. Minecraft 1.12.2 written books have a strict
+     * page-size limit, so keeping each page below 240 characters is safer.
+     */
     private void addText(List<String> pages, String text) {
         if (text == null || text.isEmpty()) {
             return;
         }
+
         String remaining = text;
-        while (remaining.length() > PAGE_LIMIT) {
-            int split = remaining.lastIndexOf(' ', PAGE_LIMIT);
-            if (split < 1) {
-                split = PAGE_LIMIT;
+        while (!remaining.isEmpty()) {
+            String currentPage = pages.isEmpty() ? "" : pages.get(pages.size() - 1);
+            int separatorLength = currentPage.isEmpty() ? 0 : 1;
+            int available = PAGE_LIMIT - currentPage.length() - separatorLength;
+
+            if (available <= 0) {
+                pages.add("");
+                continue;
             }
-            pages.add(remaining.substring(0, split));
-            remaining = ChatColor.getLastColors(remaining.substring(0, split))
+
+            if (remaining.length() <= available) {
+                if (pages.isEmpty()) {
+                    pages.add(remaining);
+                } else if (currentPage.isEmpty()) {
+                    pages.set(pages.size() - 1, remaining);
+                } else {
+                    pages.set(pages.size() - 1, currentPage + "\\n" + remaining);
+                }
+                return;
+            }
+
+            int split = remaining.lastIndexOf(' ', available);
+            if (split < 1) {
+                split = available;
+            }
+
+            String part = remaining.substring(0, split);
+            if (pages.isEmpty()) {
+                pages.add(part);
+            } else if (currentPage.isEmpty()) {
+                pages.set(pages.size() - 1, part);
+            } else {
+                pages.set(pages.size() - 1, currentPage + "\\n" + part);
+            }
+
+            remaining = ChatColor.getLastColors(part)
                     + remaining.substring(split).trim();
         }
-        pages.add(remaining);
     }
 
     private static String joinMaterials(Iterable<Material> materials) {
