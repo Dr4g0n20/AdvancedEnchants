@@ -12,6 +12,10 @@ import net.dr4g0n20.advancedenchants.listeners.CombatLoggingListener;
 import net.dr4g0n20.advancedenchants.enchantments.effects.FeatherStepHandler;
 import net.dr4g0n20.advancedenchants.enchantments.effects.ExperienceHandler;
 import net.dr4g0n20.advancedenchants.enchantments.effects.AllurementHandler;
+import net.dr4g0n20.advancedenchants.enchantments.effects.EscapeHandler;
+import net.dr4g0n20.advancedenchants.enchantments.effects.GetawayHandler;
+import net.dr4g0n20.advancedenchants.enchantments.effects.EndAffinityHandler;
+import net.dr4g0n20.advancedenchants.enchantments.effects.NetherAffinityHandler;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentConfigLoader;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentRegistry;
 import org.bukkit.command.PluginCommand;
@@ -80,6 +84,10 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
         this.activationService.registerHandler("feather_step", new FeatherStepHandler());
         this.activationService.registerHandler("experience", new ExperienceHandler());
         this.activationService.registerHandler("allurement", new AllurementHandler());
+        this.activationService.registerHandler("escape", new EscapeHandler());
+        this.activationService.registerHandler("getaway", new GetawayHandler());
+        this.activationService.registerHandler("end_affinity", new EndAffinityHandler());
+        this.activationService.registerHandler("nether_affinity", new NetherAffinityHandler());
     }
 
     private void saveBundledEnchantmentFiles() {
