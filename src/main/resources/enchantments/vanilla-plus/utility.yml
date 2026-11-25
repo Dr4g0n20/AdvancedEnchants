@@ -1,3 +1,6 @@
-# Vanilla+ movement, utility, and miscellaneous enchantments.
+# Reserved for non-combat utility enchantments that do not belong to armour or tools.
+# The current Vanilla+ utility effects are represented in their natural categories:
+# defensive movement/breathing effects are in armour.yml, and fishing/tool utility
+# effects are in tools.yml. This file is intentionally empty for now.
 category: utility
 enchantments: {}
