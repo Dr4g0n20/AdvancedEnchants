@@ -20,7 +20,9 @@ A configurable custom-enchantment plugin for Minecraft 1.12.2.
   - Feather Step, Experience, Allurement
   - Escape, Getaway, End Affinity, Nether Affinity
   - Aura, Vanish, Waterborne, Haste
+  - Curse of Breaklessness, Foraging, Infernal Touch, Nether Prospector
 - Passive effects are refreshed while the relevant enchanted equipment is worn or held.
+- Mining effects preserve silk-touch behaviour for Infernal Touch and only add drops; Curse of Breaklessness cancels the individual block break without consuming durability.
 - Weapon-focused definitions and offensive combat effects are not part of this implementation.
 
 ## Catalogue status
