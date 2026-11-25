@@ -1,6 +1,6 @@
 # Vanilla+ defensive armour enchantments adapted for Minecraft 1.12.2.
 # Rarity and activation balancing remain intentionally unassigned.
-# Runtime handlers are active for Escape, Getaway, End Affinity, and Nether Affinity.
+# Runtime effects are active for Aura, Escape, Getaway, End Affinity, Nether Affinity, Vanish, and Waterborne.
 
 category: armour
 enchantments:
