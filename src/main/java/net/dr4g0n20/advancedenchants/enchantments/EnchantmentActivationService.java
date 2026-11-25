@@ -40,7 +40,8 @@ public final class EnchantmentActivationService {
         boolean activated = false;
         for (StoredEnchantment stored : ItemEnchantmentStorage.getEnchantments(item)) {
             EnchantmentDefinition definition = registry.get(stored.getId());
-            if (definition == null || definition.getMaximumLevel() < stored.getLevel()) {
+            if (definition == null || definition.getMaximumLevel() < stored.getLevel()
+                    || !definition.canApplyTo(item.getType())) {
                 continue;
             }
 
