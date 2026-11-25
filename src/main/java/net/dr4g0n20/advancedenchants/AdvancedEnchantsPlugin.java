@@ -68,7 +68,7 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CropReplantListener(this), this);
         Bukkit.getPluginManager().registerEvents(new FishingUtilityListener(this), this);
         Bukkit.getPluginManager().registerEvents(new BlastMiningListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new WeaponEnchantmentListener(), this);
+        Bukkit.getPluginManager().registerEvents(new WeaponEnchantmentListener(this), this);
         Bukkit.getPluginManager().registerEvents(new ArmorCombatListener(), this);
         Bukkit.getPluginManager().registerEvents(new BowEnchantmentListener(this), this);
         new PassiveEnchantmentTask(this).runTaskTimer(this, 20L, 20L);
