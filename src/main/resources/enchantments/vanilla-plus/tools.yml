@@ -122,3 +122,48 @@ enchantments:
     effects:
       restores-crop: true
       requires-replantable-crop: true
+
+  auto_reel:
+    display-name: Auto Reel
+    maximum-level: 3
+    description: Automatically reels in a fishing catch when it is ready.
+    rarity: UNASSIGNED
+    applicable-items: [FISHING_ROD]
+    incompatible-with: []
+    activation: {type: FISHING_CATCH, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      automatic-reel: true
+
+  bait:
+    display-name: Bait
+    maximum-level: 3
+    description: Improves the chance of attracting a fishing catch.
+    rarity: UNASSIGNED
+    applicable-items: [FISHING_ROD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      improves-fishing-bite-chance: true
+
+  blacksmith:
+    display-name: Blacksmith
+    maximum-level: 3
+    description: Helps preserve tool durability during ordinary use.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLD_PICKAXE, DIAMOND_PICKAXE, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE, WOOD_SPADE, STONE_SPADE, IRON_SPADE, GOLD_SPADE, DIAMOND_SPADE, WOOD_HOE, STONE_HOE, IRON_HOE, GOLD_HOE, DIAMOND_HOE, SHEARS, FISHING_ROD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      preserves-tool-durability: true
+
+  carrot_planter:
+    display-name: Carrot Planter
+    maximum-level: 1
+    description: Automatically replants harvested carrots when suitable seeds are available.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_HOE, STONE_HOE, IRON_HOE, GOLD_HOE, DIAMOND_HOE]
+    incompatible-with: []
+    activation: {type: BLOCK_BREAK, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      crop: CARROT
+      auto-replant: true
