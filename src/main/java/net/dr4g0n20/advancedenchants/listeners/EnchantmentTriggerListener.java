@@ -39,7 +39,7 @@ public final class EnchantmentTriggerListener implements Listener {
         activations.tryActivate(event.getPlayer(), rod, ActivationTrigger.FISHING_CATCH, event);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerDamaged(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player)) {
             return;
