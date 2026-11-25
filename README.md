@@ -39,9 +39,12 @@ This is the initial project scaffold. It currently includes:
 - Application validation for item compatibility, maximum levels, configured conflicts, and the global enchantment limit.
 - Books can store conflicting enchantments; equipment application checks conflicts.
 - An application service exposed by the main plugin class.
+- A category-based YAML loader for enchantment definitions.
+- Initial Vanilla+ configuration files split into weapons, armour, tools, and utility.
+- Definition metadata for rarity, activation type, chance, cooldown, item compatibility, conflicts, and effect settings.
 - Preservation of pre-existing localized-name metadata.
 
-The actual enchantment storage, effects, anvil replacement, acquisition systems, and guidebook are not implemented yet.
+The enchantment YAML files are currently templates; the full Vanilla+ catalogue and its effect handlers still need to be added. Anvil replacement, acquisition systems, and the guidebook are also not implemented yet.
 
 ## Building
 
