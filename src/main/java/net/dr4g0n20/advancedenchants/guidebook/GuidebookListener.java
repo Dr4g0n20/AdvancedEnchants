@@ -1,14 +1,14 @@
 package net.dr4g0n20.advancedenchants.guidebook;
 
 import net.dr4g0n20.advancedenchants.AdvancedEnchantsPlugin;
-import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
-/** Refreshes an existing guidebook immediately before the player opens it. */
 public final class GuidebookListener implements Listener {
 
     private final AdvancedEnchantsPlugin plugin;
@@ -17,16 +17,23 @@ public final class GuidebookListener implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler
-    public void onGuidebookOpen(PlayerInteractEvent event) {
-        if (event.getAction() != Action.RIGHT_CLICK_AIR
-                && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
-            return;
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onMenuClick(InventoryClickEvent event) {
+        Inventory top = event.getView().getTopInventory();
+        if (!(top.getHolder() instanceof GuidebookMenuHolder)) return;
+        event.setCancelled(true);
+        if (!(event.getWhoClicked() instanceof Player)) return;
+        if (event.getClickedInventory() == null || event.getClickedInventory() != top) return;
+
+        GuidebookMenuHolder holder = (GuidebookMenuHolder) top.getHolder();
+        plugin.getGuidebookService().handleClick((Player) event.getWhoClicked(),
+                holder, event.getSlot());
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onMenuDrag(InventoryDragEvent event) {
+        if (event.getView().getTopInventory().getHolder() instanceof GuidebookMenuHolder) {
+            event.setCancelled(true);
         }
-        ItemStack item = event.getItem();
-        if (item == null || item.getType() != Material.WRITTEN_BOOK) {
-            return;
-        }
-        new GuidebookService(plugin.getEnchantmentRegistry()).refresh(item);
     }
 }
