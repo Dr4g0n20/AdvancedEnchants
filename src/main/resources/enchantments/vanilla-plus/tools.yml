@@ -1,3 +1,124 @@
-# Vanilla+ tool and mining enchantments.
+# Vanilla+ non-combat tool, mining, farming, and fishing enchantments.
+# Adapted for Minecraft 1.12.2. Effect handlers are not active yet.
+# Rarity and activation balancing remain intentionally unassigned.
+
 category: tools
-enchantments: {}
+enchantments:
+
+  alacrity:
+    display-name: Alacrity
+    maximum-level: 3
+    description: Allows supported tool-use actions to complete more quickly.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLD_PICKAXE, DIAMOND_PICKAXE, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE, WOOD_SPADE, STONE_SPADE, IRON_SPADE, GOLD_SPADE, DIAMOND_SPADE, WOOD_HOE, STONE_HOE, IRON_HOE, GOLD_HOE, DIAMOND_HOE, SHEARS]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      scope: TOOL_USE_ACTIONS
+      affects-block-breaking-speed: false
+
+  allurement:
+    display-name: Allurement
+    maximum-level: 3
+    description: Has a chance to grant additional fishing loot.
+    rarity: UNASSIGNED
+    applicable-items: [FISHING_ROD]
+    incompatible-with: []
+    activation: {type: FISHING_CATCH, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-loot-only: true
+
+  blast_mining:
+    display-name: Blast Mining
+    maximum-level: 3
+    description: Mines a limited 3x3 area without creating an explosion or damaging the surrounding environment.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLD_PICKAXE, DIAMOND_PICKAXE]
+    incompatible-with: []
+    activation: {type: BLOCK_BREAK, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      area-shape: 3X3
+      creates-explosion: false
+      damages-entities: false
+      breaks-protected-blocks: false
+
+  curse_of_breaklessness:
+    display-name: Curse of Breaklessness
+    maximum-level: 3
+    description: Sometimes prevents a block from breaking; failed attempts consume no tool durability and produce no drops.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLD_PICKAXE, DIAMOND_PICKAXE, WOOD_SPADE, STONE_SPADE, IRON_SPADE, GOLD_SPADE, DIAMOND_SPADE, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    incompatible-with: []
+    activation: {type: BLOCK_BREAK, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      failed-break-consumes-durability: false
+      failed-break-drops-items: false
+
+  experience:
+    display-name: Experience
+    maximum-level: 5
+    description: Has a chance to grant extra experience when mining eligible ores.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLD_PICKAXE, DIAMOND_PICKAXE]
+    incompatible-with: []
+    activation: {type: BLOCK_BREAK, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-experience-only: true
+
+  foraging:
+    display-name: Foraging
+    maximum-level: 3
+    description: Has a chance to multiply eligible drops from leaves.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE, SHEARS]
+    incompatible-with: []
+    activation: {type: BLOCK_BREAK, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      target-blocks: [LEAVES, LEAVES_2]
+      multiplies-drops: true
+
+  haste:
+    display-name: Haste
+    maximum-level: 3
+    description: Improves block-breaking speed with supported tools.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLD_PICKAXE, DIAMOND_PICKAXE, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE, WOOD_SPADE, STONE_SPADE, IRON_SPADE, GOLD_SPADE, DIAMOND_SPADE, WOOD_HOE, STONE_HOE, IRON_HOE, GOLD_HOE, DIAMOND_HOE, SHEARS]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      improves-block-breaking-speed: true
+
+  infernal_touch:
+    display-name: Infernal Touch
+    maximum-level: 3
+    description: Has a chance to smelt eligible mined drops automatically.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLD_PICKAXE, DIAMOND_PICKAXE, WOOD_SPADE, STONE_SPADE, IRON_SPADE, GOLD_SPADE, DIAMOND_SPADE]
+    incompatible-with: []
+    activation: {type: BLOCK_BREAK, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      smelts-eligible-drops: true
+
+  nether_prospector:
+    display-name: Nether Prospector
+    maximum-level: 3
+    description: Has a chance to grant bonus Nether Quartz when mining Nether Quartz Ore; Ancient Debris is not available in 1.12.2.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLD_PICKAXE, DIAMOND_PICKAXE]
+    incompatible-with: []
+    activation: {type: BLOCK_BREAK, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      target-block: QUARTZ_ORE
+      bonus-drop: QUARTZ
+
+  replenish:
+    display-name: Replenish
+    maximum-level: 1
+    description: Restores eligible crops after harvesting them.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_HOE, STONE_HOE, IRON_HOE, GOLD_HOE, DIAMOND_HOE]
+    incompatible-with: []
+    activation: {type: BLOCK_BREAK, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      restores-crop: true
+      requires-replantable-crop: true
