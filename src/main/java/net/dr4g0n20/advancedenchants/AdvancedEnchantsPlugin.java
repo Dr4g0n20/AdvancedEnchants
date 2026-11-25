@@ -1,6 +1,9 @@
 package net.dr4g0n20.advancedenchants;
 
 import net.dr4g0n20.advancedenchants.commands.AdminCommand;
+import net.dr4g0n20.advancedenchants.guidebook.GuidebookService;
+import net.dr4g0n20.advancedenchants.guidebook.GuidebookListener;
+import org.bukkit.entity.Player;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentApplicator;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentActivationService;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentCooldownManager;
@@ -30,6 +33,7 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
     private EnchantmentRegistry enchantmentRegistry;
     private EnchantmentApplicator enchantmentApplicator;
     private EnchantmentActivationService activationService;
+    private GuidebookService guidebookService;
 
     @Override
     public void onEnable() {
@@ -38,6 +42,7 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
         registerCommands();
         Bukkit.getPluginManager().registerEvents(
                 new EnchantmentTriggerListener(activationService), this);
+        Bukkit.getPluginManager().registerEvents(new GuidebookListener(this), this);
         getLogger().info("AdvancedEnchants enabled. Registered "
                 + enchantmentRegistry.size() + " custom enchantments.");
     }
@@ -58,6 +63,7 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
 
     private void initialiseEnchantmentServices() {
         this.enchantmentRegistry = new EnchantmentRegistry();
+        this.guidebookService = new GuidebookService(enchantmentRegistry);
 
         if (getConfig().getBoolean("enchantments.load-vanilla-plus", true)) {
             saveBundledEnchantmentFiles();
@@ -84,6 +90,10 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
 
     public EnchantmentRegistry getEnchantmentRegistry() {
         return enchantmentRegistry;
+    }
+
+    public void giveGuidebook(Player player) {
+        guidebookService.giveTo(player);
     }
 
     public EnchantmentApplicator getEnchantmentApplicator() {
