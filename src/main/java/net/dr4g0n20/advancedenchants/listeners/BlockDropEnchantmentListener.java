@@ -24,6 +24,9 @@ public final class BlockDropEnchantmentListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
+        if (BlastMiningListener.isProcessingExtraBlock()) {
+            return;
+        }
         Player player = event.getPlayer();
         if (player.getGameMode() != GameMode.SURVIVAL) {
             return;
