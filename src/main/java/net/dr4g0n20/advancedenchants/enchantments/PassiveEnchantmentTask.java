@@ -37,6 +37,11 @@ public final class PassiveEnchantmentTask extends BukkitRunnable {
             if (hasteLevel > 0 && hasteLevel <= 3) {
                 refresh(player, PotionEffectType.FAST_DIGGING, hasteLevel - 1);
             }
+
+            int alacrityLevel = ItemEnchantmentStorage.getLevel(hand, "alacrity");
+            if (alacrityLevel > 0 && alacrityLevel <= 3) {
+                refresh(player, PotionEffectType.SPEED, alacrityLevel - 1);
+            }
         }
     }
 
