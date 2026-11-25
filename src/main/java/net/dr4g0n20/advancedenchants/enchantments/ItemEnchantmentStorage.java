@@ -71,7 +71,7 @@ public final class ItemEnchantmentStorage {
      * change its position in the item's application order.
      */
     public static boolean setEnchantment(ItemStack item, String enchantmentId, int level) {
-        if (item == null || item.getType().isAir() || enchantmentId == null
+        if (item == null || item.getType() == org.bukkit.Material.AIR || enchantmentId == null
                 || enchantmentId.trim().isEmpty() || level < 1) {
             return false;
         }
@@ -162,8 +162,8 @@ public final class ItemEnchantmentStorage {
     }
 
     private static ItemMeta getMeta(ItemStack item) {
-        if (item == null || item.getType().isAir() || !item.hasItemMeta()) {
-            return item == null || item.getType().isAir() ? null : item.getItemMeta();
+        if (item == null || item.getType() == org.bukkit.Material.AIR || !item.hasItemMeta()) {
+            return item == null || item.getType() == org.bukkit.Material.AIR ? null : item.getItemMeta();
         }
         return item.getItemMeta();
     }
