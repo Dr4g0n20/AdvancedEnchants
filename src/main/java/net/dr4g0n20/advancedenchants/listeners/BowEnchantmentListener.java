@@ -33,7 +33,7 @@ public final class BowEnchantmentListener implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onArrowLaunch(ProjectileLaunchEvent event) {
         if (spawningExtraArrows || !(event.getEntity() instanceof Arrow)
                 || !(event.getEntity().getShooter() instanceof Player)) {
