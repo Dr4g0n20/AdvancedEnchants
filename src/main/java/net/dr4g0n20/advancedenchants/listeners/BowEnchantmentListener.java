@@ -114,19 +114,6 @@ public final class BowEnchantmentListener implements Listener {
             event.setDamage(event.getDamage() + thor);
         }
 
-        int contagion = ItemEnchantmentStorage.getLevel(bow, "contagion");
-        if (contagion > 0 && roll(Math.min(0.75D, 0.15D * contagion))) {
-            Location impact = target.getLocation();
-            AreaEffectCloud cloud = impact.getWorld().spawn(impact, AreaEffectCloud.class);
-            cloud.setRadius(2.0F + (0.5F * contagion));
-            cloud.setDuration(60 + (20 * contagion));
-            cloud.setWaitTime(0);
-            cloud.setRadiusPerTick(-0.005F);
-            cloud.setColor(Color.fromRGB(75, 35, 110));
-            cloud.setParticle(Particle.SPELL_MOB);
-            cloud.addCustomEffect(new PotionEffect(PotionEffectType.POISON,
-                    60 + (20 * contagion), 0), true);
-        }
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -138,6 +125,21 @@ public final class BowEnchantmentListener implements Listener {
         if (bow == null) {
             return;
         }
+        int contagion = ItemEnchantmentStorage.getLevel(bow, "contagion");
+        if (contagion > 0 && roll(Math.min(0.75D, 0.15D * contagion))) {
+            Location impact = event.getEntity().getLocation();
+            AreaEffectCloud cloud = impact.getWorld().spawn(impact, AreaEffectCloud.class);
+            cloud.setRadius(2.0F + (0.5F * contagion));
+            cloud.setDuration(60 + (20 * contagion));
+            cloud.setWaitTime(0);
+            cloud.setRadiusPerTick(-0.005F);
+            cloud.setColor(Color.fromRGB(75, 35, 110));
+            cloud.setParticle(Particle.SPELL_MOB);
+            cloud.setSource(((Arrow) event.getEntity()).getShooter());
+            cloud.addCustomEffect(new PotionEffect(PotionEffectType.POISON,
+                    60 + (20 * contagion), 0), true);
+        }
+
         int explosive = ItemEnchantmentStorage.getLevel(bow, "explosive");
         if (explosive < 1 || !roll(Math.min(0.75D, 0.15D * explosive))) {
             return;
