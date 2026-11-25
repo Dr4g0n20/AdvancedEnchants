@@ -137,7 +137,7 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
 
             if (resource.endsWith("/weapons.yml")) {
                 appendMissingDefaults(file, resource, new String[] {
-                        "contagion", "explosive", "flashbang", "frost", "multi_shot",
+                        "abrasion", "contagion", "explosive", "flashbang", "frost", "multi_shot",
                         "arctic_freeze", "ascend", "caffeinated", "carve", "charge",
                         "curse_of_harmlessness", "drain", "enderbane", "fuddle",
                         "ninja", "postpone", "repel", "shura", "thor"
