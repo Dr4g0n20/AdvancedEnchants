@@ -19,6 +19,7 @@ import net.dr4g0n20.advancedenchants.listeners.FishingUtilityListener;
 import net.dr4g0n20.advancedenchants.listeners.BlastMiningListener;
 import net.dr4g0n20.advancedenchants.listeners.WeaponEnchantmentListener;
 import net.dr4g0n20.advancedenchants.listeners.ArmorCombatListener;
+import net.dr4g0n20.advancedenchants.listeners.BowEnchantmentListener;
 import net.dr4g0n20.advancedenchants.enchantments.effects.FeatherStepHandler;
 import net.dr4g0n20.advancedenchants.enchantments.effects.ExperienceHandler;
 import net.dr4g0n20.advancedenchants.enchantments.effects.AllurementHandler;
@@ -69,6 +70,7 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new BlastMiningListener(this), this);
         Bukkit.getPluginManager().registerEvents(new WeaponEnchantmentListener(), this);
         Bukkit.getPluginManager().registerEvents(new ArmorCombatListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BowEnchantmentListener(this), this);
         new PassiveEnchantmentTask(this).runTaskTimer(this, 20L, 20L);
         getLogger().info("AdvancedEnchants enabled. Registered "
                 + enchantmentRegistry.size() + " custom enchantments.");
