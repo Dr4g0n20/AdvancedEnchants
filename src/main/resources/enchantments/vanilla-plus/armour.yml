@@ -59,7 +59,7 @@ enchantments:
     rarity: UNASSIGNED
     applicable-items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, GOLD_HELMET, GOLD_CHESTPLATE, GOLD_LEGGINGS, GOLD_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
     incompatible-with: []
-    activation: {type: DEFENSE, chance: 100.0, cooldown-seconds: 10}
+    activation: {type: DEFENSE, chance: 100.0, cooldown-seconds: 0}
     effects:
       health-threshold-percent: 20
       short-duration: true
