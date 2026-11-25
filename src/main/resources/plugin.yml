@@ -6,8 +6,7 @@ author: Dr4g0n20
 commands:
   ae:
     description: AdvancedEnchants administration command
-    usage: /ae reload
-    permission: advancedenchants.admin
+    usage: /ae <guidebook|reload>
 permissions:
   advancedenchants.admin:
     description: Allows administration of AdvancedEnchants
