@@ -22,7 +22,7 @@ public final class AdminCommand implements CommandExecutor {
                 sender.sendMessage(ChatColor.RED + "Only players can receive the guidebook.");
                 return true;
             }
-            plugin.giveGuidebook((Player) sender);
+            plugin.openGuidebook((Player) sender);
             return true;
         }
 
