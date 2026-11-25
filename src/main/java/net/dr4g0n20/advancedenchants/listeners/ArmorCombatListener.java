@@ -36,7 +36,9 @@ public final class ArmorCombatListener implements Listener {
         int scorching = totalLevel(defender, "scorching");
 
         if (resonate > 0) {
-            event.setDamage(event.getDamage() * Math.max(0.0D, 1.0D - (0.04D * resonate)));
+            double reflected = event.getDamage() * Math.min(0.75D, 0.04D * resonate);
+            event.setDamage(Math.max(0.0D, event.getDamage() - reflected));
+            applySecondaryDamage(attacker, defender, reflected);
         }
 
         if (adrenaline > 0 && !(attacker instanceof Player)) {
@@ -48,8 +50,9 @@ public final class ArmorCombatListener implements Listener {
             attacker.setFireTicks(Math.max(attacker.getFireTicks(), 40 + (20 * scorching)));
         }
 
-        if (rebounding > 0 && roll(Math.min(0.60D, 0.10D * rebounding))) {
-            applySecondaryDamage(attacker, defender, Math.max(1.0D, event.getDamage() * 0.10D * rebounding));
+        if (rebounding > 0) {
+            double reflected = event.getDamage() * Math.min(0.75D, 0.10D * rebounding);
+            applySecondaryDamage(attacker, defender, reflected);
         }
 
         if (rumble > 0 && roll(Math.min(0.50D, 0.08D * rumble))) {
