@@ -3,13 +3,10 @@ package net.dr4g0n20.advancedenchants.enchantments;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 
-/**
- * Stores custom enchantment definitions in registration order.
- * Custom enchantments will use plugin-managed item metadata rather than
- * registering Bukkit Enchantment instances globally.
- */
+/** Stores custom enchantment definitions in registration order. */
 public final class EnchantmentRegistry {
 
     private final Map<String, EnchantmentDefinition> enchantments =
@@ -24,7 +21,7 @@ public final class EnchantmentRegistry {
     }
 
     public EnchantmentDefinition get(String id) {
-        return id == null ? null : enchantments.get(id.toLowerCase());
+        return id == null ? null : enchantments.get(id.toLowerCase(Locale.ENGLISH));
     }
 
     public Collection<EnchantmentDefinition> getAll() {
