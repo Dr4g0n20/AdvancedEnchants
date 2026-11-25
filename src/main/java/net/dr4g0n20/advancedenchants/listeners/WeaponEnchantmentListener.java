@@ -119,6 +119,26 @@ public final class WeaponEnchantmentListener implements Listener {
                     attacker.getHealth() + healing));
         }
 
+        level = ItemEnchantmentStorage.getLevel(weapon, "abrasion");
+        if (level > 0 && victim instanceof Player) {
+            ItemStack[] armour = ((Player) victim).getInventory().getArmorContents();
+            List<Integer> equippedSlots = new ArrayList<Integer>();
+            for (int slot = 0; slot < armour.length; slot++) {
+                if (armour[slot] != null && armour[slot].getType() != Material.AIR
+                        && armour[slot].getType().getMaxDurability() > 0) {
+                    equippedSlots.add(slot);
+                }
+            }
+            if (!equippedSlots.isEmpty()) {
+                int slot = equippedSlots.get(ThreadLocalRandom.current()
+                        .nextInt(equippedSlots.size()));
+                ItemStack piece = armour[slot];
+                int nextDamage = piece.getDurability() + level;
+                piece.setDurability((short) Math.min(piece.getType().getMaxDurability(), nextDamage));
+                ((Player) victim).getInventory().setArmorContents(armour);
+            }
+        }
+
         level = ItemEnchantmentStorage.getLevel(weapon, "caffeinated");
         if (level > 0 && attacker.isSprinting()
                 && roll(Math.min(0.60D, 0.10D * level))) {
