@@ -1,0 +1,14 @@
+name: AdvancedEnchants
+main: net.dr4g0n20.advancedenchants.AdvancedEnchantsPlugin
+version: 0.1.0-SNAPSHOT
+description: Configurable custom enchantments for Minecraft 1.12.2
+author: Dr4g0n20
+commands:
+  ae:
+    description: AdvancedEnchants administration command
+    usage: /ae reload
+    permission: advancedenchants.admin
+permissions:
+  advancedenchants.admin:
+    description: Allows administration of AdvancedEnchants
+    default: op
