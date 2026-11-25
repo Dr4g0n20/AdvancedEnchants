@@ -137,13 +137,13 @@ enchantments:
   bait:
     display-name: Bait
     maximum-level: 3
-    description: Improves the chance of attracting a fishing catch.
+    description: Grants bonus experience when successfully catching fish; the 1.12.2 API does not provide a working bite-rate adjustment.
     rarity: UNASSIGNED
     applicable-items: [FISHING_ROD]
     incompatible-with: []
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
-      improves-fishing-bite-chance: true
+      bonus-fishing-experience-per-level: 1
 
   blacksmith:
     display-name: Blacksmith
