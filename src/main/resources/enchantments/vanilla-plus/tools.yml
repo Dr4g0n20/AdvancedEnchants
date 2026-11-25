@@ -8,14 +8,14 @@ enchantments:
   alacrity:
     display-name: Alacrity
     maximum-level: 3
-    description: Allows supported tool-use actions to complete more quickly.
+    description: Improves movement speed while holding supported tools without increasing block-breaking speed.
     rarity: UNASSIGNED
     applicable-items: [WOOD_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLD_PICKAXE, DIAMOND_PICKAXE, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE, WOOD_SPADE, STONE_SPADE, IRON_SPADE, GOLD_SPADE, DIAMOND_SPADE, WOOD_HOE, STONE_HOE, IRON_HOE, GOLD_HOE, DIAMOND_HOE, SHEARS]
     incompatible-with: []
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
-      scope: TOOL_USE_ACTIONS
-      affects-block-breaking-speed: false
+      scope: TOOL_HANDLING
+      movement-speed-bonus: true
 
   allurement:
     display-name: Allurement
