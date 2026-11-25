@@ -1,5 +1,5 @@
 # Vanilla+ non-combat tool, mining, farming, and fishing enchantments.
-# Adapted for Minecraft 1.12.2. Implemented effects are active; remaining entries are being implemented in batches.
+# All non-combat tool, fishing, and farming effects in this file have runtime handlers.
 # Rarity and activation balancing remain intentionally unassigned.
 
 category: tools
