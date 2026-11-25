@@ -45,12 +45,12 @@ public final class GuidebookService {
 
         List<String> categories = getCategories();
         Material[] icons = {Material.IRON_CHESTPLATE, Material.IRON_PICKAXE,
-                Material.FISHING_ROD, Material.WHEAT, Material.BOOK};
-        int[] slots = {20, 22, 24, 30, 32};
+                Material.FISHING_ROD, Material.WHEAT, Material.BOOK, Material.BOOKSHELF};
+        int[] slots = {19, 21, 23, 25, 29, 31};
         for (int i = 0; i < categories.size(); i++) {
             String category = categories.get(i);
             Material icon = icons[i % icons.length];
-            inventory.setItem(slots[i % slots.length], item(icon,
+            inventory.setItem(slots[i], item(icon,
                     ChatColor.AQUA + titleCase(category),
                     Arrays.asList(ChatColor.GRAY + "Browse " + countCategory(category)
                             + " enchantments", ChatColor.YELLOW + "Click to open")));
@@ -83,7 +83,7 @@ public final class GuidebookService {
                 return;
             }
             List<String> categories = getCategories();
-            int[] slots = {20, 22, 24, 30, 32};
+            int[] slots = {19, 21, 23, 25, 29, 31};
             for (int i = 0; i < categories.size() && i < slots.length; i++) {
                 if (slot == slots[i]) {
                     openCategory(player, categories.get(i), 0);
@@ -95,10 +95,10 @@ public final class GuidebookService {
 
         if (holder.getView() == GuidebookMenuHolder.View.DETAIL) {
             if (slot == HOME_SLOT) {
-                if ("all".equals(holder.getCategory())) openCategory(player, "all", 0);
-                else if ("index".equals(holder.getCategory())) openIndex(player, 0);
-                else if ("conflicts".equals(holder.getCategory())) openConflicts(player, 0);
-                else openCategory(player, holder.getCategory(), 0);
+                if ("all".equals(holder.getCategory())) openCategory(player, "all", holder.getPage());
+                else if ("index".equals(holder.getCategory())) openIndex(player, holder.getPage());
+                else if ("conflicts".equals(holder.getCategory())) openConflicts(player, holder.getPage());
+                else openCategory(player, holder.getCategory(), holder.getPage());
             }
             return;
         }
@@ -112,7 +112,10 @@ public final class GuidebookService {
             return;
         }
         if (slot == NEXT_SLOT) {
-            openPage(player, holder, holder.getPage() + 1);
+            int total = entriesFor(holder).size();
+            if ((holder.getPage() + 1) * CONTENT_SLOTS < total) {
+                openPage(player, holder, holder.getPage() + 1);
+            }
             return;
         }
         if (slot >= 0 && slot < CONTENT_SLOTS) {
