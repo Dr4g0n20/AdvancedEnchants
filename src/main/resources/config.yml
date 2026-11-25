@@ -1,0 +1,18 @@
+general:
+  debug: false
+  max-enchantments: 10
+
+anvil:
+  enabled: true
+  remove-prior-work-penalty: true
+  maximum-cost: 10000
+  cost-by-resulting-levels: true
+  free-renaming: true
+  free-repairing: true
+
+feedback:
+  # none, reduced, or full
+  default-mode: none
+
+enchantments:
+  load-vanilla-plus: true
