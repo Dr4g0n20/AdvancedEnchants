@@ -171,7 +171,7 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
                     "(?ms)^  " + id + ":\\s*\\n.*?(?=^  [a-z0-9_]+:\\s*$|\\z)");
             java.util.regex.Matcher matcher = pattern.matcher(bundled);
             if (matcher.find()) {
-                additions.append(matcher.group().trim()).append("\\n\\n");
+                additions.append(matcher.group().trim()).append("\n\n");
             }
         }
 
@@ -182,7 +182,7 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
         try {
             String current = new String(java.nio.file.Files.readAllBytes(file.toPath()),
                     java.nio.charset.StandardCharsets.UTF_8);
-            String updated = current + (current.endsWith("\\n") ? "" : "\\n")
+            String updated = current + (current.endsWith("\n") ? "" : "\n")
                     + additions.toString();
             java.nio.file.Files.write(file.toPath(),
                     updated.getBytes(java.nio.charset.StandardCharsets.UTF_8));
