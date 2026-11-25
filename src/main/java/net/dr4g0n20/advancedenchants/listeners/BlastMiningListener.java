@@ -41,6 +41,9 @@ public final class BlastMiningListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onCentreBlockBreak(final BlockBreakEvent event) {
+        if (isProcessingExtraBlock()) {
+            return;
+        }
         final Player player = event.getPlayer();
         if (player.getGameMode() != GameMode.SURVIVAL
                 || !ItemEnchantmentStorage.hasEnchantment(
@@ -118,7 +121,7 @@ public final class BlastMiningListener implements Listener {
         Material type = block.getType();
         if (type == Material.AIR || !type.isSolid()
                 || type == Material.BEDROCK || type == Material.BARRIER
-                || type == Material.END_PORTAL_FRAME || type == Material.MOB_SPAWNER) {
+                || type == Material.ENDER_PORTAL_FRAME || type == Material.MOB_SPAWNER) {
             return false;
         }
         return !(block.getState() instanceof InventoryHolder);
