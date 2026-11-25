@@ -202,9 +202,9 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
                     + additions.toString();
             java.nio.file.Files.write(file.toPath(),
                     updated.getBytes(java.nio.charset.StandardCharsets.UTF_8));
-            getLogger().info("Added missing Vanilla+ armour definitions to " + file.getName() + ".");
+            getLogger().info("Added missing Vanilla+ definitions to " + file.getName() + ".");
         } catch (java.io.IOException ex) {
-            getLogger().warning("Could not migrate Vanilla+ armour definitions: "
+            getLogger().warning("Could not migrate Vanilla+ definitions: "
                     + ex.getMessage());
         }
     }
