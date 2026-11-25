@@ -116,7 +116,7 @@ enchantments:
   rebounding:
     display-name: Rebounding
     maximum-level: 3
-    description: Has a chance to reflect a portion of incoming melee damage.
+    description: Reflects a portion of incoming damage back at the attacker.
     rarity: UNASSIGNED
     applicable-items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, GOLD_HELMET, GOLD_CHESTPLATE, GOLD_LEGGINGS, GOLD_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
     incompatible-with: []
@@ -127,13 +127,13 @@ enchantments:
   resonate:
     display-name: Resonate
     maximum-level: 3
-    description: Reduces incoming melee damage.
+    description: Absorbs and reflects a portion of incoming damage.
     rarity: UNASSIGNED
     applicable-items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, GOLD_HELMET, GOLD_CHESTPLATE, GOLD_LEGGINGS, GOLD_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
     incompatible-with: []
     activation: {type: DEFENSE, chance: 100.0, cooldown-seconds: 0}
     effects:
-      damage-reduction-per-level: 0.04
+      reflected-damage-per-level: 0.04
 
   rumble:
     display-name: Rumble
