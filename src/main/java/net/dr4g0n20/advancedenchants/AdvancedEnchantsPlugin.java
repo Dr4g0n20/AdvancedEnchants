@@ -5,6 +5,9 @@ import net.dr4g0n20.advancedenchants.enchantments.EnchantmentApplicator;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentActivationService;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentCooldownManager;
 import net.dr4g0n20.advancedenchants.listeners.EnchantmentTriggerListener;
+import net.dr4g0n20.advancedenchants.enchantments.effects.FeatherStepHandler;
+import net.dr4g0n20.advancedenchants.enchantments.effects.ExperienceHandler;
+import net.dr4g0n20.advancedenchants.enchantments.effects.AllurementHandler;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentConfigLoader;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentRegistry;
 import org.bukkit.command.PluginCommand;
@@ -66,6 +69,9 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
         this.enchantmentApplicator = new EnchantmentApplicator(enchantmentRegistry, maximum);
         this.activationService = new EnchantmentActivationService(
                 enchantmentRegistry, new EnchantmentCooldownManager());
+        this.activationService.registerHandler("feather_step", new FeatherStepHandler());
+        this.activationService.registerHandler("experience", new ExperienceHandler());
+        this.activationService.registerHandler("allurement", new AllurementHandler());
     }
 
     private void saveBundledEnchantmentFiles() {
