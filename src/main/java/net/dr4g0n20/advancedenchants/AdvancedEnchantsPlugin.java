@@ -120,8 +120,12 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
         return enchantmentRegistry;
     }
 
-    public void giveGuidebook(Player player) {
-        guidebookService.giveTo(player);
+    public void openGuidebook(Player player) {
+        guidebookService.open(player);
+    }
+
+    public GuidebookService getGuidebookService() {
+        return guidebookService;
     }
 
     public EnchantmentApplicator getEnchantmentApplicator() {
