@@ -366,3 +366,14 @@ enchantments:
     effects:
       chance-per-level: 0.10
       suppresses-mob-knockback: true
+
+  abrasion:
+    display-name: Abrasion
+    maximum-level: 3
+    description: Damages a random equipped armour piece on a player you hit.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      armour-durability-damage-per-level: 1
