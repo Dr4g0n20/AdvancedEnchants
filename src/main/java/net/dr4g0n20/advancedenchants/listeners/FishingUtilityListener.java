@@ -34,12 +34,10 @@ public final class FishingUtilityListener implements Listener {
             return;
         }
 
-        if (event.getState() == PlayerFishEvent.State.FISHING
+        if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH
                 && ItemEnchantmentStorage.hasEnchantment(rod, "bait")) {
             int level = ItemEnchantmentStorage.getLevel(rod, "bait");
-            double current = event.getHook().getBiteChance();
-            double improved = Math.min(1.0D, Math.max(0.05D, current) + 0.05D * level);
-            event.getHook().setBiteChance(improved);
+            event.setExpToDrop(event.getExpToDrop() + level);
         }
 
         if (event.getState() == PlayerFishEvent.State.BITE
