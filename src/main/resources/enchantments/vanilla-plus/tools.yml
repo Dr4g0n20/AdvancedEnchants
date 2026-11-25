@@ -167,3 +167,37 @@ enchantments:
     effects:
       crop: CARROT
       auto-replant: true
+
+  fire_hook:
+    display-name: Fire Hook
+    maximum-level: 3
+    description: Sets hooked living entities on fire when caught.
+    rarity: UNASSIGNED
+    applicable-items: [FISHING_ROD]
+    incompatible-with: []
+    activation: {type: FISHING_CATCH, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      fire-ticks-per-level: 40
+
+  poisoned_hook:
+    display-name: Poisoned Hook
+    maximum-level: 3
+    description: Poisons hooked living entities when caught.
+    rarity: UNASSIGNED
+    applicable-items: [FISHING_ROD]
+    incompatible-with: []
+    activation: {type: FISHING_CATCH, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      potion-effect: POISON
+      duration-ticks-per-level: 40
+
+  sharpness_hook:
+    display-name: Sharpness Hook
+    maximum-level: 3
+    description: Increases the damage dealt by a fishing hook to a living entity.
+    rarity: UNASSIGNED
+    applicable-items: [FISHING_ROD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-damage-per-level: 1.0
