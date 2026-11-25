@@ -20,7 +20,7 @@ public final class BlockBreakEnchantmentListener implements Listener {
             return;
         }
 
-        double chance = Math.min(0.45D, 0.05D * level);
+        double chance = 0.40D;
         if (ThreadLocalRandom.current().nextDouble() < chance) {
             event.setCancelled(true);
         }

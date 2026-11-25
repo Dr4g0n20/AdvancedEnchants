@@ -17,6 +17,9 @@ import net.dr4g0n20.advancedenchants.listeners.ToolDurabilityListener;
 import net.dr4g0n20.advancedenchants.listeners.CropReplantListener;
 import net.dr4g0n20.advancedenchants.listeners.FishingUtilityListener;
 import net.dr4g0n20.advancedenchants.listeners.BlastMiningListener;
+import net.dr4g0n20.advancedenchants.listeners.WeaponEnchantmentListener;
+import net.dr4g0n20.advancedenchants.listeners.ArmorCombatListener;
+import net.dr4g0n20.advancedenchants.listeners.BowEnchantmentListener;
 import net.dr4g0n20.advancedenchants.enchantments.effects.FeatherStepHandler;
 import net.dr4g0n20.advancedenchants.enchantments.effects.ExperienceHandler;
 import net.dr4g0n20.advancedenchants.enchantments.effects.AllurementHandler;
@@ -65,6 +68,9 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CropReplantListener(this), this);
         Bukkit.getPluginManager().registerEvents(new FishingUtilityListener(this), this);
         Bukkit.getPluginManager().registerEvents(new BlastMiningListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new WeaponEnchantmentListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new ArmorCombatListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BowEnchantmentListener(this), this);
         new PassiveEnchantmentTask(this).runTaskTimer(this, 20L, 20L);
         getLogger().info("AdvancedEnchants enabled. Registered "
                 + enchantmentRegistry.size() + " custom enchantments.");
@@ -110,9 +116,99 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
 
     private void saveBundledEnchantmentFiles() {
         for (String resource : BUNDLED_ENCHANTMENT_FILES) {
-            if (!new java.io.File(getDataFolder(), resource).exists()) {
+            java.io.File file = new java.io.File(getDataFolder(), resource);
+            if (!file.exists()) {
                 saveResource(resource, false);
+                continue;
             }
+
+            // The original release shipped an intentionally empty weapons.yml.
+            // Upgrade that exact empty catalogue, but never overwrite a server's
+            // existing custom weapon definitions.
+            if (resource.endsWith("/weapons.yml")) {
+                org.bukkit.configuration.file.YamlConfiguration existing =
+                        org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(file);
+                org.bukkit.configuration.ConfigurationSection entries =
+                        existing.getConfigurationSection("enchantments");
+                if (entries != null && entries.getKeys(false).isEmpty()) {
+                    saveResource(resource, true);
+                }
+            }
+
+            if (resource.endsWith("/weapons.yml")) {
+                appendMissingDefaults(file, resource, new String[] {
+                        "criticals", "first_strike", "finishing", "blackout", "blaze_reaper",
+                        "cubism", "incinerate", "skullcrusher", "zombie_crusher",
+                        "starvation", "ravenous", "abrasion", "contagion", "explosive",
+                        "flashbang", "frost", "multi_shot", "arctic_freeze", "ascend",
+                        "caffeinated", "carve", "charge", "curse_of_harmlessness",
+                        "drain", "enderbane", "fuddle", "ninja", "postpone",
+                        "repel", "shura", "thor"
+                });
+            }
+            if (resource.endsWith("/armour.yml")) {
+                appendMissingDefaults(file, resource, new String[] {
+                        "adrenaline", "rebounding", "resonate", "rumble", "scorching"
+                });
+            }
+            if (resource.endsWith("/tools.yml")) {
+                appendMissingDefaults(file, resource, new String[] {
+                        "fire_hook", "poisoned_hook", "sharpness_hook"
+                });
+            }
+        }
+    }
+
+    private void appendMissingDefaults(java.io.File file, String resource, String[] addedIds) {
+        org.bukkit.configuration.file.YamlConfiguration existing =
+                org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(file);
+        org.bukkit.configuration.ConfigurationSection entries =
+                existing.getConfigurationSection("enchantments");
+        if (entries == null) {
+            return;
+        }
+
+        java.io.InputStream stream = getResource(resource);
+        if (stream == null) {
+            return;
+        }
+
+        java.util.Scanner scanner = new java.util.Scanner(stream, "UTF-8").useDelimiter("\\A");
+        String bundled;
+        try {
+            bundled = scanner.hasNext() ? scanner.next() : "";
+        } finally {
+            scanner.close();
+        }
+
+        StringBuilder additions = new StringBuilder();
+        for (String id : addedIds) {
+            if (entries.contains(id)) {
+                continue;
+            }
+            java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(
+                    "(?ms)^  " + id + ":\\s*\\n.*?(?=^  [a-z0-9_]+:\\s*$|\\z)");
+            java.util.regex.Matcher matcher = pattern.matcher(bundled);
+            if (matcher.find()) {
+                additions.append(matcher.group().trim()).append("\n\n");
+            }
+        }
+
+        if (additions.length() == 0) {
+            return;
+        }
+
+        try {
+            String current = new String(java.nio.file.Files.readAllBytes(file.toPath()),
+                    java.nio.charset.StandardCharsets.UTF_8);
+            String updated = current + (current.endsWith("\n") ? "" : "\n")
+                    + additions.toString();
+            java.nio.file.Files.write(file.toPath(),
+                    updated.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            getLogger().info("Added missing Vanilla+ definitions to " + file.getName() + ".");
+        } catch (java.io.IOException ex) {
+            getLogger().warning("Could not migrate Vanilla+ definitions: "
+                    + ex.getMessage());
         }
     }
 

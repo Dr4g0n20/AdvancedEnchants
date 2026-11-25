@@ -1,6 +1,6 @@
 # Vanilla+ defensive armour enchantments adapted for Minecraft 1.12.2.
 # Rarity and activation balancing remain intentionally unassigned.
-# Runtime effects are active for Aura, Escape, Getaway, End Affinity, Nether Affinity, Vanish, and Waterborne.
+# Runtime effects are active for Aura, Adrenaline, Rebounding, Resonate, Rumble, Scorching, Escape, Getaway, End Affinity, Nether Affinity, Vanish, and Waterborne.
 
 category: armour
 enchantments:
@@ -99,3 +99,61 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       underwater-breathing: true
+
+
+  adrenaline:
+    display-name: Adrenaline
+    maximum-level: 3
+    description: Grants Strength briefly when defending against hostile mobs.
+    rarity: UNASSIGNED
+    applicable-items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, GOLD_HELMET, GOLD_CHESTPLATE, GOLD_LEGGINGS, GOLD_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
+    incompatible-with: []
+    activation: {type: DEFENSE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      potion-effect: INCREASE_DAMAGE
+      duration-ticks: 60
+
+  rebounding:
+    display-name: Rebounding
+    maximum-level: 3
+    description: Reflects a portion of incoming damage back at the attacker.
+    rarity: UNASSIGNED
+    applicable-items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, GOLD_HELMET, GOLD_CHESTPLATE, GOLD_LEGGINGS, GOLD_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
+    incompatible-with: []
+    activation: {type: DEFENSE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      reflected-damage-per-level: 0.10
+
+  resonate:
+    display-name: Resonate
+    maximum-level: 3
+    description: Absorbs and reflects a portion of incoming damage.
+    rarity: UNASSIGNED
+    applicable-items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, GOLD_HELMET, GOLD_CHESTPLATE, GOLD_LEGGINGS, GOLD_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
+    incompatible-with: []
+    activation: {type: DEFENSE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      reflected-damage-per-level: 0.04
+
+  rumble:
+    display-name: Rumble
+    maximum-level: 3
+    description: Has a chance to damage other nearby enemies when you are struck.
+    rarity: UNASSIGNED
+    applicable-items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, GOLD_HELMET, GOLD_CHESTPLATE, GOLD_LEGGINGS, GOLD_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
+    incompatible-with: []
+    activation: {type: DEFENSE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      radius: 3
+      damage: 1.0
+
+  scorching:
+    display-name: Scorching
+    maximum-level: 3
+    description: Has a chance to set your attacker on fire when struck.
+    rarity: UNASSIGNED
+    applicable-items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, GOLD_HELMET, GOLD_CHESTPLATE, GOLD_LEGGINGS, GOLD_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
+    incompatible-with: []
+    activation: {type: DEFENSE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      fire-ticks-per-level: 20

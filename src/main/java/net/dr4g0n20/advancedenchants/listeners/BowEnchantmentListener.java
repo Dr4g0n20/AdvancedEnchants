@@ -1,0 +1,175 @@
+package net.dr4g0n20.advancedenchants.listeners;
+
+import net.dr4g0n20.advancedenchants.enchantments.ItemEnchantmentStorage;
+import org.bukkit.Location;
+import org.bukkit.Color;
+import org.bukkit.Particle;
+import org.bukkit.entity.AreaEffectCloud;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.EntityType;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.MetadataValue;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+
+/** Bow enchantments implemented using the legacy 1.12.2 projectile API. */
+public final class BowEnchantmentListener implements Listener {
+
+    private static final String BOW_DATA = "advancedenchants_bow";
+    private static boolean spawningExtraArrows;
+    private final JavaPlugin plugin;
+
+    public BowEnchantmentListener(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void onArrowLaunch(ProjectileLaunchEvent event) {
+        if (spawningExtraArrows || !(event.getEntity() instanceof Arrow)
+                || !(event.getEntity().getShooter() instanceof Player)) {
+            return;
+        }
+
+        Player shooter = (Player) event.getEntity().getShooter();
+        ItemStack bow = shooter.getItemInHand();
+        if (bow == null || bow.getType() != org.bukkit.Material.BOW) {
+            return;
+        }
+
+        Arrow arrow = (Arrow) event.getEntity();
+        arrow.setMetadata(BOW_DATA, new FixedMetadataValue(plugin, bow.clone()));
+
+        int multiShot = ItemEnchantmentStorage.getLevel(bow, "multi_shot");
+        if (multiShot < 1) {
+            return;
+        }
+
+        // Two additional arrows are spread slightly around the original shot.
+        Vector direction = arrow.getVelocity().clone();
+        Location origin = arrow.getLocation();
+        spawningExtraArrows = true;
+        try {
+            for (int i = 0; i < 2; i++) {
+                double angle = (i == 0 ? -0.12D : 0.12D);
+                Vector spread = rotateY(direction, angle);
+                Arrow extra = shooter.getWorld().spawnArrow(origin, spread,
+                        (float) Math.max(0.1D, direction.length()), 0.0F);
+                extra.setShooter(shooter);
+                extra.setMetadata(BOW_DATA, new FixedMetadataValue(plugin, bow.clone()));
+            }
+        } finally {
+            spawningExtraArrows = false;
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void onArrowDamage(EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof Arrow)
+                || !(event.getEntity() instanceof LivingEntity)) {
+            return;
+        }
+        ItemStack bow = storedBow((Arrow) event.getDamager());
+        if (bow == null) {
+            return;
+        }
+
+        LivingEntity target = (LivingEntity) event.getEntity();
+        int flashbang = ItemEnchantmentStorage.getLevel(bow, "flashbang");
+        if (flashbang > 0) {
+            target.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,
+                    20 * flashbang, 0), true);
+        }
+
+        int frost = ItemEnchantmentStorage.getLevel(bow, "frost");
+        if (frost > 0 && roll(Math.min(0.75D, 0.15D * frost))) {
+            target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,
+                    40 + (20 * frost), Math.min(3, frost - 1)), true);
+        }
+
+        int cubism = ItemEnchantmentStorage.getLevel(bow, "cubism");
+        if (cubism > 0 && (target.getType() == EntityType.SLIME
+                || target.getType() == EntityType.MAGMA_CUBE)) {
+            event.setDamage(event.getDamage() * (1.0D + (0.10D * cubism)));
+        }
+
+        int thor = ItemEnchantmentStorage.getLevel(bow, "thor");
+        if (thor > 0 && roll(Math.min(0.45D, 0.05D * thor))) {
+            target.getWorld().strikeLightningEffect(target.getLocation());
+            event.setDamage(event.getDamage() + thor);
+        }
+
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void onArrowLand(ProjectileHitEvent event) {
+        if (!(event.getEntity() instanceof Arrow)) {
+            return;
+        }
+        ItemStack bow = storedBow((Arrow) event.getEntity());
+        if (bow == null) {
+            return;
+        }
+        int contagion = ItemEnchantmentStorage.getLevel(bow, "contagion");
+        if (contagion > 0 && roll(Math.min(0.75D, 0.15D * contagion))) {
+            Location impact = event.getEntity().getLocation();
+            AreaEffectCloud cloud = impact.getWorld().spawn(impact, AreaEffectCloud.class);
+            cloud.setRadius(2.0F + (0.5F * contagion));
+            cloud.setDuration(60 + (20 * contagion));
+            cloud.setWaitTime(0);
+            cloud.setRadiusPerTick(-0.005F);
+            cloud.setColor(Color.fromRGB(75, 35, 110));
+            cloud.setParticle(Particle.SPELL_MOB);
+            cloud.setSource(((Arrow) event.getEntity()).getShooter());
+            cloud.addCustomEffect(new PotionEffect(PotionEffectType.POISON,
+                    60 + (20 * contagion), 0), true);
+        }
+
+        int explosive = ItemEnchantmentStorage.getLevel(bow, "explosive");
+        if (explosive < 1 || !roll(Math.min(0.75D, 0.15D * explosive))) {
+            return;
+        }
+        Location hit = event.getEntity().getLocation();
+        // A small, entity-only explosion avoids block damage and fire.
+        hit.getWorld().createExplosion(hit.getX(), hit.getY(), hit.getZ(),
+                1.0F, false, false);
+    }
+
+    private ItemStack storedBow(Arrow arrow) {
+        if (!arrow.hasMetadata(BOW_DATA)) {
+            return null;
+        }
+        List<MetadataValue> values = arrow.getMetadata(BOW_DATA);
+        if (values.isEmpty() || !(values.get(0).value() instanceof ItemStack)) {
+            return null;
+        }
+        return (ItemStack) values.get(0).value();
+    }
+
+    private boolean roll(double chance) {
+        return ThreadLocalRandom.current().nextDouble() < chance;
+    }
+
+    private Vector rotateY(Vector vector, double angle) {
+        double cosine = Math.cos(angle);
+        double sine = Math.sin(angle);
+        return new Vector(vector.getX() * cosine - vector.getZ() * sine,
+                vector.getY(),
+                vector.getX() * sine + vector.getZ() * cosine);
+    }
+}
