@@ -137,10 +137,13 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
 
             if (resource.endsWith("/weapons.yml")) {
                 appendMissingDefaults(file, resource, new String[] {
-                        "abrasion", "contagion", "explosive", "flashbang", "frost", "multi_shot",
-                        "arctic_freeze", "ascend", "caffeinated", "carve", "charge",
-                        "curse_of_harmlessness", "drain", "enderbane", "fuddle",
-                        "ninja", "postpone", "repel", "shura", "thor"
+                        "criticals", "first_strike", "finishing", "blackout", "blaze_reaper",
+                        "cubism", "incinerate", "skullcrusher", "zombie_crusher",
+                        "starvation", "ravenous", "abrasion", "contagion", "explosive",
+                        "flashbang", "frost", "multi_shot", "arctic_freeze", "ascend",
+                        "caffeinated", "carve", "charge", "curse_of_harmlessness",
+                        "drain", "enderbane", "fuddle", "ninja", "postpone",
+                        "repel", "shura", "thor"
                 });
             }
             if (resource.endsWith("/armour.yml")) {
