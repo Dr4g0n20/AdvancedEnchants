@@ -140,7 +140,7 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
                         "contagion", "explosive", "flashbang", "frost", "multi_shot",
                         "arctic_freeze", "ascend", "caffeinated", "carve", "charge",
                         "curse_of_harmlessness", "drain", "enderbane", "fuddle",
-                        "ninja", "repel", "shura", "thor"
+                        "ninja", "postpone", "repel", "shura", "thor"
                 });
             }
             if (resource.endsWith("/armour.yml")) {
