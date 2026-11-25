@@ -1,0 +1,20 @@
+# Vanilla+ weapon enchantments.
+# Add entries under enchantments using the schema below.
+category: weapons
+enchantments: {}
+# Example structure (uncomment and replace values when adding an enchantment):
+# enchantments:
+#   example_enchant:
+#     display-name: Example Enchant
+#     maximum-level: 3
+#     description: Short guidebook description.
+#     rarity: COMMON
+#     applicable-items:
+#       - DIAMOND_SWORD
+#     incompatible-with: []
+#     activation:
+#       type: ON_HIT
+#       chance: 25.0
+#       cooldown-seconds: 5
+#     effects:
+#       duration-ticks: 60
