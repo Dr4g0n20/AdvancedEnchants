@@ -12,6 +12,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.Bukkit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +30,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public final class WeaponEnchantmentListener implements Listener {
 
     private boolean applyingAreaDamage;
+    private final JavaPlugin plugin;
+
+    public WeaponEnchantmentListener(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onEntityDamage(EntityDamageByEntityEvent event) {
@@ -74,6 +81,20 @@ public final class WeaponEnchantmentListener implements Listener {
                     40 + 20 * level, Math.min(2, level - 1)), true);
             victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON,
                     40 + 10 * level, 0), true);
+        }
+
+        level = ItemEnchantmentStorage.getLevel(weapon, "postpone");
+        if (level > 0 && !(victim instanceof Player)
+                && roll(Math.min(0.60D, 0.10D * level))) {
+            final LivingEntity affected = victim;
+            Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+                @Override
+                public void run() {
+                    if (affected.isValid() && !affected.isDead()) {
+                        affected.setVelocity(new Vector(0.0D, 0.0D, 0.0D));
+                    }
+                }
+            }, 1L);
         }
 
         level = ItemEnchantmentStorage.getLevel(weapon, "repel");
