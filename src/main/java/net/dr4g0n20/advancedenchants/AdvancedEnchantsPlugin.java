@@ -2,10 +2,14 @@ package net.dr4g0n20.advancedenchants;
 
 import net.dr4g0n20.advancedenchants.commands.AdminCommand;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentApplicator;
+import net.dr4g0n20.advancedenchants.enchantments.EnchantmentActivationService;
+import net.dr4g0n20.advancedenchants.enchantments.EnchantmentCooldownManager;
+import net.dr4g0n20.advancedenchants.listeners.EnchantmentTriggerListener;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentConfigLoader;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentRegistry;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.Bukkit;
 
 /**
  * Main entry point for AdvancedEnchants.
@@ -22,12 +26,15 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
 
     private EnchantmentRegistry enchantmentRegistry;
     private EnchantmentApplicator enchantmentApplicator;
+    private EnchantmentActivationService activationService;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         initialiseEnchantmentServices();
         registerCommands();
+        Bukkit.getPluginManager().registerEvents(
+                new EnchantmentTriggerListener(activationService), this);
         getLogger().info("AdvancedEnchants enabled. Registered "
                 + enchantmentRegistry.size() + " custom enchantments.");
     }
@@ -57,6 +64,8 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
 
         int maximum = Math.max(1, getConfig().getInt("general.max-enchantments", 10));
         this.enchantmentApplicator = new EnchantmentApplicator(enchantmentRegistry, maximum);
+        this.activationService = new EnchantmentActivationService(
+                enchantmentRegistry, new EnchantmentCooldownManager());
     }
 
     private void saveBundledEnchantmentFiles() {
