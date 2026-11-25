@@ -6,6 +6,7 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -21,6 +22,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /** Bow enchantments implemented using the legacy 1.12.2 projectile API. */
 public final class BowEnchantmentListener implements Listener {
@@ -59,7 +61,8 @@ public final class BowEnchantmentListener implements Listener {
         Location origin = arrow.getLocation();
         spawningExtraArrows = true;
         try {
-            for (double angle : new double[] {-0.12D, 0.12D}) {
+            for (int i = 0; i < multiShot + 1; i++) {
+                double angle = (i - (multiShot / 2.0D)) * 0.12D;
                 Vector spread = rotateY(direction, angle);
                 Arrow extra = shooter.getWorld().spawnArrow(origin, spread,
                         (float) Math.max(0.1D, direction.length()), 0.0F);
@@ -95,6 +98,18 @@ public final class BowEnchantmentListener implements Listener {
                     40 + (20 * frost), Math.min(3, frost - 1)), true);
         }
 
+        int cubism = ItemEnchantmentStorage.getLevel(bow, "cubism");
+        if (cubism > 0 && (target.getType() == EntityType.SLIME
+                || target.getType() == EntityType.MAGMA_CUBE)) {
+            event.setDamage(event.getDamage() * (1.0D + (0.10D * cubism)));
+        }
+
+        int thor = ItemEnchantmentStorage.getLevel(bow, "thor");
+        if (thor > 0 && roll(Math.min(0.45D, 0.05D * thor))) {
+            target.getWorld().strikeLightningEffect(target.getLocation());
+            event.setDamage(event.getDamage() + thor);
+        }
+
         int contagion = ItemEnchantmentStorage.getLevel(bow, "contagion");
         if (contagion > 0) {
             int duration = 40 + (20 * contagion);
@@ -116,7 +131,11 @@ public final class BowEnchantmentListener implements Listener {
             return;
         }
         ItemStack bow = storedBow((Arrow) event.getEntity());
-        if (bow == null || ItemEnchantmentStorage.getLevel(bow, "explosive") < 1) {
+        if (bow == null) {
+            return;
+        }
+        int explosive = ItemEnchantmentStorage.getLevel(bow, "explosive");
+        if (explosive < 1 || !roll(Math.min(0.75D, 0.15D * explosive))) {
             return;
         }
         Location hit = event.getEntity().getLocation();
@@ -136,7 +155,7 @@ public final class BowEnchantmentListener implements Listener {
         return (ItemStack) values.get(0).value();
     }
 
-    private Vector rotateY(Vector vector, double angle) {
+    private boolean roll(double chance) {\n        return ThreadLocalRandom.current().nextDouble() < chance;\n    }\n\n    private Vector rotateY(Vector vector, double angle) {
         double cosine = Math.cos(angle);
         double sine = Math.sin(angle);
         return new Vector(vector.getX() * cosine - vector.getZ() * sine,
