@@ -21,8 +21,10 @@ A configurable custom-enchantment plugin for Minecraft 1.12.2.
   - Escape, Getaway, End Affinity, Nether Affinity
   - Aura, Vanish, Waterborne, Haste
   - Curse of Breaklessness, Foraging, Infernal Touch, Nether Prospector
+  - Blacksmith, Carrot Planter, Replenish
 - Passive effects are refreshed while the relevant enchanted equipment is worn or held.
 - Mining effects preserve silk-touch behaviour for Infernal Touch and only add drops; Curse of Breaklessness cancels the individual block break without consuming durability.
+- Crop replanting requires the appropriate seed item in the player's inventory; Blacksmith can prevent a durability loss.
 - Weapon-focused definitions and offensive combat effects are not part of this implementation.
 
 ## Catalogue status
