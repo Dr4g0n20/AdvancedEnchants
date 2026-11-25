@@ -42,9 +42,11 @@ This is the initial project scaffold. It currently includes:
 - A category-based YAML loader for enchantment definitions.
 - Initial Vanilla+ configuration files split into weapons, armour, tools, and utility.
 - Definition metadata for rarity, activation type, chance, cooldown, item compatibility, conflicts, and effect settings.
+- A trigger, chance, and per-player cooldown activation pipeline for non-offensive enchantments.
+- Initial runtime handlers for Feather Step (fall protection), Experience (bonus ore XP), and Allurement (bonus fishing catch).
 - Preservation of pre-existing localized-name metadata.
 
-The catalogue now includes an initial set of defensive armour and non-combat tool/fishing definitions, adapted for Minecraft 1.12.2. Weapon-focused definitions and combat effect handlers are not part of this implementation. Rarity assignments and activation balancing remain pending. The YAML files currently describe definitions only; runtime effect handlers, anvil replacement, acquisition systems, and the guidebook are not implemented yet.
+The catalogue now includes an initial set of defensive armour and non-combat tool/fishing definitions, adapted for Minecraft 1.12.2. Weapon-focused definitions and combat effect handlers are not part of this implementation. Rarity assignments and activation balancing remain pending. The first three non-offensive runtime effects are implemented; other YAML entries remain definitions until their handlers are added. The guidebook is planned to show every enabled enchantment to every player from the first opening, without a discovery or hidden-entry system. Anvil replacement and acquisition systems are not implemented yet.
 
 ## Building
 
