@@ -155,7 +155,11 @@ public final class BowEnchantmentListener implements Listener {
         return (ItemStack) values.get(0).value();
     }
 
-    private boolean roll(double chance) {\n        return ThreadLocalRandom.current().nextDouble() < chance;\n    }\n\n    private Vector rotateY(Vector vector, double angle) {
+    private boolean roll(double chance) {
+        return ThreadLocalRandom.current().nextDouble() < chance;
+    }
+
+    private Vector rotateY(Vector vector, double angle) {
         double cosine = Math.cos(angle);
         double sine = Math.sin(angle);
         return new Vector(vector.getX() * cosine - vector.getZ() * sine,
