@@ -7,8 +7,10 @@ import org.bukkit.entity.Player;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentApplicator;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentActivationService;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentCooldownManager;
+import net.dr4g0n20.advancedenchants.enchantments.PassiveEnchantmentTask;
 import net.dr4g0n20.advancedenchants.listeners.EnchantmentTriggerListener;
 import net.dr4g0n20.advancedenchants.listeners.CombatLoggingListener;
+import net.dr4g0n20.advancedenchants.listeners.AuraListener;
 import net.dr4g0n20.advancedenchants.enchantments.effects.FeatherStepHandler;
 import net.dr4g0n20.advancedenchants.enchantments.effects.ExperienceHandler;
 import net.dr4g0n20.advancedenchants.enchantments.effects.AllurementHandler;
@@ -16,6 +18,7 @@ import net.dr4g0n20.advancedenchants.enchantments.effects.EscapeHandler;
 import net.dr4g0n20.advancedenchants.enchantments.effects.GetawayHandler;
 import net.dr4g0n20.advancedenchants.enchantments.effects.EndAffinityHandler;
 import net.dr4g0n20.advancedenchants.enchantments.effects.NetherAffinityHandler;
+import net.dr4g0n20.advancedenchants.enchantments.effects.VanishHandler;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentConfigLoader;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentRegistry;
 import org.bukkit.command.PluginCommand;
@@ -49,6 +52,8 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
                 new EnchantmentTriggerListener(activationService), this);
         Bukkit.getPluginManager().registerEvents(new GuidebookListener(this), this);
         Bukkit.getPluginManager().registerEvents(new CombatLoggingListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new AuraListener(), this);
+        new PassiveEnchantmentTask(this).runTaskTimer(this, 20L, 20L);
         getLogger().info("AdvancedEnchants enabled. Registered "
                 + enchantmentRegistry.size() + " custom enchantments.");
     }
@@ -88,6 +93,7 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
         this.activationService.registerHandler("getaway", new GetawayHandler());
         this.activationService.registerHandler("end_affinity", new EndAffinityHandler());
         this.activationService.registerHandler("nether_affinity", new NetherAffinityHandler());
+        this.activationService.registerHandler("vanish", new VanishHandler());
     }
 
     private void saveBundledEnchantmentFiles() {
