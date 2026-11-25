@@ -8,6 +8,7 @@ import net.dr4g0n20.advancedenchants.enchantments.EnchantmentApplicator;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentActivationService;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentCooldownManager;
 import net.dr4g0n20.advancedenchants.listeners.EnchantmentTriggerListener;
+import net.dr4g0n20.advancedenchants.listeners.CombatLoggingListener;
 import net.dr4g0n20.advancedenchants.enchantments.effects.FeatherStepHandler;
 import net.dr4g0n20.advancedenchants.enchantments.effects.ExperienceHandler;
 import net.dr4g0n20.advancedenchants.enchantments.effects.AllurementHandler;
@@ -43,6 +44,7 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(
                 new EnchantmentTriggerListener(activationService), this);
         Bukkit.getPluginManager().registerEvents(new GuidebookListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new CombatLoggingListener(this), this);
         getLogger().info("AdvancedEnchants enabled. Registered "
                 + enchantmentRegistry.size() + " custom enchantments.");
     }
