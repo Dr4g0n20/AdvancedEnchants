@@ -25,6 +25,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 /** Bow enchantments implemented using the legacy 1.12.2 projectile API. */
