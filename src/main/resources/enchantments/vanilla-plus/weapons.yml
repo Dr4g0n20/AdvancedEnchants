@@ -69,7 +69,7 @@ enchantments:
     maximum-level: 3
     description: Deals bonus damage to Slimes and Magma Cubes.
     rarity: UNASSIGNED
-    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE, BOW]
     incompatible-with: []
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
@@ -348,7 +348,7 @@ enchantments:
     maximum-level: 3
     description: Has a chance to call a harmless lightning visual on your target and deal bonus damage.
     rarity: UNASSIGNED
-    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE, BOW]
     incompatible-with: []
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
