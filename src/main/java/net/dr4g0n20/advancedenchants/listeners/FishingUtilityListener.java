@@ -3,6 +3,11 @@ package net.dr4g0n20.advancedenchants.listeners;
 import net.dr4g0n20.advancedenchants.enchantments.ItemEnchantmentStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.FishHook;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -55,6 +60,43 @@ public final class FishingUtilityListener implements Listener {
                     retrieveHook(hook);
                 }
             }, 1L);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void onHookCatch(PlayerFishEvent event) {
+        if (event.getState() != PlayerFishEvent.State.CAUGHT_ENTITY) {
+            return;
+        }
+        Entity caught = event.getCaught();
+        if (!(caught instanceof LivingEntity)) {
+            return;
+        }
+
+        ItemStack rod = event.getPlayer().getItemInHand();
+        LivingEntity target = (LivingEntity) caught;
+        int fire = ItemEnchantmentStorage.getLevel(rod, "fire_hook");
+        if (fire > 0) {
+            target.setFireTicks(Math.max(target.getFireTicks(), fire * 40));
+        }
+
+        int poison = ItemEnchantmentStorage.getLevel(rod, "poisoned_hook");
+        if (poison > 0) {
+            target.addPotionEffect(new PotionEffect(PotionEffectType.POISON,
+                    40 * poison, 0), true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void onHookDamage(EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof FishHook)
+                || !(((FishHook) event.getDamager()).getShooter() instanceof Player)) {
+            return;
+        }
+        Player player = (Player) ((FishHook) event.getDamager()).getShooter();
+        int level = ItemEnchantmentStorage.getLevel(player.getItemInHand(), "sharpness_hook");
+        if (level > 0) {
+            event.setDamage(event.getDamage() + level);
         }
     }
 
