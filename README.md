@@ -44,6 +44,7 @@ This is the initial project scaffold. It currently includes:
 - Definition metadata for rarity, activation type, chance, cooldown, item compatibility, conflicts, and effect settings.
 - A trigger, chance, and per-player cooldown activation pipeline for non-offensive enchantments.
 - A player-accessible written guidebook via `/ae guidebook`; every enabled enchantment is visible immediately, and existing guidebooks refresh when opened.
+- Combat-logging protection: player-caused damage starts a configurable 15-second tag; disconnecting while tagged drops carried inventory, armour, and offhand items at the logout location and kills the player.
 - Initial runtime handlers for Feather Step (fall protection), Experience (bonus ore XP), and Allurement (bonus fishing catch).
 - Preservation of pre-existing localized-name metadata.
 
