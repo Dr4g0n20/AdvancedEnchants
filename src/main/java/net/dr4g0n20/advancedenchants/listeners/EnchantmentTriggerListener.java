@@ -30,7 +30,7 @@ public final class EnchantmentTriggerListener implements Listener {
         activations.tryActivate(player, tool, ActivationTrigger.BLOCK_BREAK, event);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onFishingCatch(PlayerFishEvent event) {
         if (event.getState() != PlayerFishEvent.State.CAUGHT_FISH) {
             return;
