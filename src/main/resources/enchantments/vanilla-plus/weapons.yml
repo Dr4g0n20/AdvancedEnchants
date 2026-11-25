@@ -196,3 +196,161 @@ enchantments:
     effects:
       additional-arrows: 2
       spread-angle: 0.12
+
+  arctic_freeze:
+    display-name: Arctic Freeze
+    maximum-level: 3
+    description: Chance to slow and poison an opponent, representing the freeze and bleed effects.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      chance-per-level: 0.10
+            slow-duration-ticks: 100
+            bleed-effect: POISON
+
+  ascend:
+    display-name: Ascend
+    maximum-level: 3
+    description: Right-click to briefly levitate.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      right-click-ability: LEVITATION
+            duration-ticks-per-level: 20
+
+  caffeinated:
+    display-name: Caffeinated
+    maximum-level: 3
+    description: Chance to gain a short speed boost while sprinting and attacking.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      requires-sprinting: true
+            potion-effect: SPEED
+            chance-per-level: 0.10
+
+  carve:
+    display-name: Carve
+    maximum-level: 3
+    description: Damages other nearby living entities when you hit a target.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      radius: 3
+            damage-per-level: 1.0
+
+  charge:
+    display-name: Charge
+    maximum-level: 2
+    description: Right-click to launch yourself forward.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      right-click-ability: DASH
+            velocity-per-level: 0.35
+
+  curse_of_harmlessness:
+    display-name: Curse of Harmlessness
+    maximum-level: 3
+    description: Has a chance to make a melee attack deal no damage.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      chance-per-level: 0.10
+            cancels-damage: true
+
+  drain:
+    display-name: Drain
+    maximum-level: 7
+    description: Restores a small amount of health when dealing melee damage.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      healing-fraction-per-level: 0.03
+            maximum-healing: 2.0
+
+  enderbane:
+    display-name: Enderbane
+    maximum-level: 5
+    description: Increases damage dealt to Endermen and Ender Dragons.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-damage-per-level: 0.15
+            targets: [ENDERMAN, ENDER_DRAGON]
+
+  fuddle:
+    display-name: fuddle
+    maximum-level: 3
+    description: Has a chance to shuffle the target player's hotbar.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      chance-per-level: 0.08
+            shuffles-hotbar: true
+
+  ninja:
+    display-name: Ninja
+    maximum-level: 3
+    description: Deals bonus damage while sneaking.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-damage-per-level: 0.15
+            requires-sneaking: true
+
+  repel:
+    display-name: Repel
+    maximum-level: 3
+    description: Has a chance to knock your opponent backward.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      chance-per-level: 0.10
+            knockback: true
+
+  shura:
+    display-name: Shura
+    maximum-level: 3
+    description: Increases critical-hit damage while you are below half health.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-critical-damage-per-level: 0.15
+            health-threshold: 0.50
+
+  thor:
+    display-name: Thor
+    maximum-level: 3
+    description: Has a chance to call a harmless lightning visual on your target and deal bonus damage.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      chance-per-level: 0.05
+            bonus-damage-per-level: 1.0
