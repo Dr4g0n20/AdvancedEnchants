@@ -36,6 +36,9 @@ This is the initial project scaffold. It currently includes:
 - Initial /ae reload administration command.
 - Custom enchantment definition and registry foundations.
 - Persistent item/book enchantment storage, including levels and application order.
+- Application validation for item compatibility, maximum levels, configured conflicts, and the global enchantment limit.
+- Books can store conflicting enchantments; equipment application checks conflicts.
+- An application service exposed by the main plugin class.
 - Preservation of pre-existing localized-name metadata.
 
 The actual enchantment storage, effects, anvil replacement, acquisition systems, and guidebook are not implemented yet.
