@@ -28,6 +28,7 @@ A configurable custom-enchantment plugin for Minecraft 1.12.2.
 - Crop replanting requires the appropriate seed item in the player's inventory; Blacksmith can prevent a durability loss.
 - Blast Mining checks each additional block through a break event, skips protected or container blocks, and applies durability and eligible mining XP.
 - Auto Reel uses reflective access to the 1.12.2 fishing-hook retraction method; server-fork compatibility must be verified in a live test.
+- Bait grants bonus fishing experience rather than changing bite probability, avoiding the deprecated bite-chance API.
 - Weapon-focused definitions and offensive combat effects are not part of this implementation.
 
 ## Catalogue status
