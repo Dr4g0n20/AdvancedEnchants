@@ -296,7 +296,7 @@ enchantments:
             targets: [ENDERMAN, ENDER_DRAGON]
 
   fuddle:
-    display-name: fuddle
+    display-name: Fuddle
     maximum-level: 3
     description: Has a chance to shuffle the target player's hotbar.
     rarity: UNASSIGNED
