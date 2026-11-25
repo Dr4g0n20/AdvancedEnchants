@@ -1,5 +1,6 @@
 package net.dr4g0n20.advancedenchants.guidebook;
 
+import net.dr4g0n20.advancedenchants.AdvancedEnchantsPlugin;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,10 +11,10 @@ import org.bukkit.inventory.ItemStack;
 /** Refreshes an existing guidebook immediately before the player opens it. */
 public final class GuidebookListener implements Listener {
 
-    private final GuidebookService guidebookService;
+    private final AdvancedEnchantsPlugin plugin;
 
-    public GuidebookListener(GuidebookService guidebookService) {
-        this.guidebookService = guidebookService;
+    public GuidebookListener(AdvancedEnchantsPlugin plugin) {
+        this.plugin = plugin;
     }
 
     @EventHandler
@@ -26,6 +27,6 @@ public final class GuidebookListener implements Listener {
         if (item == null || item.getType() != Material.WRITTEN_BOOK) {
             return;
         }
-        guidebookService.refresh(item);
+        new GuidebookService(plugin.getEnchantmentRegistry()).refresh(item);
     }
 }
