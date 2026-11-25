@@ -132,6 +132,64 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
                     saveResource(resource, true);
                 }
             }
+
+            if (resource.endsWith("/armour.yml")) {
+                appendMissingArmourDefaults(file, resource);
+            }
+        }
+    }
+
+    private void appendMissingArmourDefaults(java.io.File file, String resource) {
+        String[] addedIds = {"adrenaline", "rebounding", "resonate", "rumble", "scorching"};
+        org.bukkit.configuration.file.YamlConfiguration existing =
+                org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(file);
+        org.bukkit.configuration.ConfigurationSection entries =
+                existing.getConfigurationSection("enchantments");
+        if (entries == null) {
+            return;
+        }
+
+        java.io.InputStream stream = getResource(resource);
+        if (stream == null) {
+            return;
+        }
+
+        java.util.Scanner scanner = new java.util.Scanner(stream, "UTF-8").useDelimiter("\\A");
+        String bundled;
+        try {
+            bundled = scanner.hasNext() ? scanner.next() : "";
+        } finally {
+            scanner.close();
+        }
+
+        StringBuilder additions = new StringBuilder();
+        for (String id : addedIds) {
+            if (entries.contains(id)) {
+                continue;
+            }
+            java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(
+                    "(?ms)^  " + id + ":\\s*\\n.*?(?=^  [a-z0-9_]+:\\s*$|\\z)");
+            java.util.regex.Matcher matcher = pattern.matcher(bundled);
+            if (matcher.find()) {
+                additions.append(matcher.group().trim()).append("\\n\\n");
+            }
+        }
+
+        if (additions.length() == 0) {
+            return;
+        }
+
+        try {
+            String current = new String(java.nio.file.Files.readAllBytes(file.toPath()),
+                    java.nio.charset.StandardCharsets.UTF_8);
+            String updated = current + (current.endsWith("\\n") ? "" : "\\n")
+                    + additions.toString();
+            java.nio.file.Files.write(file.toPath(),
+                    updated.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            getLogger().info("Added missing Vanilla+ armour definitions to " + file.getName() + ".");
+        } catch (java.io.IOException ex) {
+            getLogger().warning("Could not migrate Vanilla+ armour definitions: "
+                    + ex.getMessage());
         }
     }
 
