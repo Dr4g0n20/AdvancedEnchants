@@ -116,7 +116,7 @@ public final class BowEnchantmentListener implements Listener {
 
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onArrowLand(ProjectileHitEvent event) {
         if (!(event.getEntity() instanceof Arrow)) {
             return;
