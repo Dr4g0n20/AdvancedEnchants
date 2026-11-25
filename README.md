@@ -35,6 +35,8 @@ This is the initial project scaffold. It currently includes:
 - Main configuration defaults.
 - Initial /ae reload administration command.
 - Custom enchantment definition and registry foundations.
+- Persistent item/book enchantment storage, including levels and application order.
+- Preservation of pre-existing localized-name metadata.
 
 The actual enchantment storage, effects, anvil replacement, acquisition systems, and guidebook are not implemented yet.
 
