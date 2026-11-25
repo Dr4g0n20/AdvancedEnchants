@@ -1,4 +1,137 @@
-# Weapon enchantment catalogue reserved for a later design pass.
-# This file intentionally contains no entries.
+# Vanilla+ melee enchantments implemented for the Bukkit 1.12.2 combat API.
+# Bow, trident, and mechanics requiring newer entity types are intentionally excluded.
+
 category: weapons
-enchantments: {}
+enchantments:
+
+  criticals:
+    display-name: Criticals
+    maximum-level: 3
+    description: Increases damage dealt by a vanilla critical hit.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-critical-damage-per-level: 0.10
+
+  first_strike:
+    display-name: First Strike
+    maximum-level: 3
+    description: Deals bonus damage when striking an enemy at full health.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-damage-per-level: 0.15
+      requires-target-full-health: true
+
+  finishing:
+    display-name: Finishing
+    maximum-level: 3
+    description: Deals bonus damage to enemies below 30 percent health.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-damage-per-level: 0.15
+      target-health-threshold: 0.30
+
+  blackout:
+    display-name: Blackout
+    maximum-level: 5
+    description: Has a chance to briefly blind the enemy on a successful melee hit.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      potion-effect: BLINDNESS
+      duration-ticks-per-level: 20
+      chance-per-level: 0.10
+
+  blaze_reaper:
+    display-name: Blaze Reaper
+    maximum-level: 3
+    description: Deals bonus damage to Nether creatures available in Minecraft 1.12.2.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-damage-per-level: 0.10
+      targets: [BLAZE, GHAST, MAGMA_CUBE, PIG_ZOMBIE]
+
+  cubism:
+    display-name: Cubism
+    maximum-level: 3
+    description: Deals bonus damage to Slimes and Magma Cubes.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-damage-per-level: 0.10
+      targets: [SLIME, MAGMA_CUBE]
+
+  incinerate:
+    display-name: Incinerate
+    maximum-level: 3
+    description: Deals bonus damage to Spiders and Cave Spiders.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-damage-per-level: 0.10
+      targets: [SPIDER, CAVE_SPIDER]
+
+  skullcrusher:
+    display-name: Skullcrusher
+    maximum-level: 3
+    description: Deals bonus damage to Skeletons and Wither Skeletons.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-damage-per-level: 0.10
+      targets: [SKELETON, WITHER_SKELETON]
+
+  zombie_crusher:
+    display-name: Zombie Crusher
+    maximum-level: 3
+    description: Deals bonus damage to Zombies.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      bonus-damage-per-level: 0.10
+      targets: [ZOMBIE]
+
+  starvation:
+    display-name: Starvation
+    maximum-level: 3
+    description: Has a chance to inflict Hunger on an enemy when hit.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      potion-effect: HUNGER
+      chance-per-level: 0.15
+
+  ravenous:
+    display-name: Ravenous
+    maximum-level: 4
+    description: Has a chance to restore hunger when dealing melee damage.
+    rarity: UNASSIGNED
+    applicable-items: [WOOD_SWORD, STONE_SWORD, IRON_SWORD, GOLD_SWORD, DIAMOND_SWORD, WOOD_AXE, STONE_AXE, IRON_AXE, GOLD_AXE, DIAMOND_AXE]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      restores-food-per-level: 1
+      chance-per-level: 0.15
