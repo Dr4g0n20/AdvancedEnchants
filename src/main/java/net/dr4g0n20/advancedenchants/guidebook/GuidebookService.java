@@ -64,11 +64,35 @@ public final class GuidebookService {
                 + ChatColor.DARK_GRAY + "Every enabled enchantment is listed. "
                 + "Entries are visible immediately; there are no discovery locks.");
 
-        addSection(pages, ChatColor.DARK_BLUE + "Contents",
-                Arrays.asList("Armour", "Tools", "Utility", "Alphabetical Index",
-                        "Incompatibilities"));
+        List<String> categories = new ArrayList<String>();
+        List<String> preferred = Arrays.asList("armour", "tools", "utility", "weapons");
+        for (String category : preferred) {
+            for (EnchantmentDefinition definition : all) {
+                if (category.equalsIgnoreCase(definition.getCategory())
+                        && !categories.contains(category)) {
+                    categories.add(category);
+                    break;
+                }
+            }
+        }
+        java.util.Set<String> additionalCategories = new java.util.TreeSet<String>(
+                String.CASE_INSENSITIVE_ORDER);
+        for (EnchantmentDefinition definition : all) {
+            String category = definition.getCategory();
+            if (category != null && !categories.contains(category.toLowerCase(Locale.ENGLISH))) {
+                additionalCategories.add(category);
+            }
+        }
+        categories.addAll(additionalCategories);
 
-        List<String> categories = Arrays.asList("armour", "tools", "utility", "weapons");
+        List<String> contents = new ArrayList<String>();
+        for (String category : categories) {
+            contents.add(titleCase(category));
+        }
+        contents.add("Alphabetical Index");
+        contents.add("Incompatibilities");
+        addSection(pages, ChatColor.DARK_BLUE + "Contents", contents);
+
         for (String category : categories) {
             List<EnchantmentDefinition> entries = new ArrayList<EnchantmentDefinition>();
             for (EnchantmentDefinition definition : all) {
