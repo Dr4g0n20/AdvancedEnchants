@@ -112,8 +112,23 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
 
     private void saveBundledEnchantmentFiles() {
         for (String resource : BUNDLED_ENCHANTMENT_FILES) {
-            if (!new java.io.File(getDataFolder(), resource).exists()) {
+            java.io.File file = new java.io.File(getDataFolder(), resource);
+            if (!file.exists()) {
                 saveResource(resource, false);
+                continue;
+            }
+
+            // The original release shipped an intentionally empty weapons.yml.
+            // Upgrade that exact empty catalogue, but never overwrite a server's
+            // existing custom weapon definitions.
+            if (resource.endsWith("/weapons.yml")) {
+                org.bukkit.configuration.file.YamlConfiguration existing =
+                        org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(file);
+                org.bukkit.configuration.ConfigurationSection entries =
+                        existing.getConfigurationSection("enchantments");
+                if (entries != null && entries.getKeys(false).isEmpty()) {
+                    saveResource(resource, true);
+                }
             }
         }
     }
