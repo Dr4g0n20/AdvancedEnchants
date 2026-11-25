@@ -2,6 +2,9 @@ package net.dr4g0n20.advancedenchants.listeners;
 
 import net.dr4g0n20.advancedenchants.enchantments.ItemEnchantmentStorage;
 import org.bukkit.Location;
+import org.bukkit.Color;
+import org.bukkit.Particle;
+import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -22,7 +25,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+
 
 /** Bow enchantments implemented using the legacy 1.12.2 projectile API. */
 public final class BowEnchantmentListener implements Listener {
@@ -61,8 +64,8 @@ public final class BowEnchantmentListener implements Listener {
         Location origin = arrow.getLocation();
         spawningExtraArrows = true;
         try {
-            for (int i = 0; i < multiShot + 1; i++) {
-                double angle = (i - (multiShot / 2.0D)) * 0.12D;
+            for (int i = 0; i < 2; i++) {
+                double angle = (i == 0 ? -0.12D : 0.12D);
                 Vector spread = rotateY(direction, angle);
                 Arrow extra = shooter.getWorld().spawnArrow(origin, spread,
                         (float) Math.max(0.1D, direction.length()), 0.0F);
@@ -93,7 +96,7 @@ public final class BowEnchantmentListener implements Listener {
         }
 
         int frost = ItemEnchantmentStorage.getLevel(bow, "frost");
-        if (frost > 0) {
+        if (frost > 0 && roll(Math.min(0.75D, 0.15D * frost))) {
             target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,
                     40 + (20 * frost), Math.min(3, frost - 1)), true);
         }
@@ -111,17 +114,17 @@ public final class BowEnchantmentListener implements Listener {
         }
 
         int contagion = ItemEnchantmentStorage.getLevel(bow, "contagion");
-        if (contagion > 0) {
-            int duration = 40 + (20 * contagion);
-            for (Entity nearby : target.getNearbyEntities(3.0D + contagion,
-                    2.0D, 3.0D + contagion)) {
-                if (nearby instanceof LivingEntity && nearby != target) {
-                    ((LivingEntity) nearby).addPotionEffect(new PotionEffect(
-                            PotionEffectType.POISON, duration, 0), true);
-                }
-            }
-            target.addPotionEffect(new PotionEffect(PotionEffectType.POISON,
-                    duration, 0), true);
+        if (contagion > 0 && roll(Math.min(0.75D, 0.15D * contagion))) {
+            Location impact = target.getLocation();
+            AreaEffectCloud cloud = impact.getWorld().spawn(impact, AreaEffectCloud.class);
+            cloud.setRadius(2.0F + (0.5F * contagion));
+            cloud.setDuration(60 + (20 * contagion));
+            cloud.setWaitTime(0);
+            cloud.setRadiusPerTick(-0.005F);
+            cloud.setColor(Color.fromRGB(75, 35, 110));
+            cloud.setParticle(Particle.SPELL_MOB);
+            cloud.addCustomEffect(new PotionEffect(PotionEffectType.POISON,
+                    60 + (20 * contagion), 0), true);
         }
     }
 
@@ -139,7 +142,7 @@ public final class BowEnchantmentListener implements Listener {
             return;
         }
         Location hit = event.getEntity().getLocation();
-        // No fire and no block damage: the enchantment cannot grief terrain.
+        // A small, entity-only explosion avoids block damage and fire.
         hit.getWorld().createExplosion(hit.getX(), hit.getY(), hit.getZ(),
                 1.0F, false, false);
     }
