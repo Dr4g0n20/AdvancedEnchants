@@ -1,3 +1,97 @@
-# Vanilla+ armour enchantments.
+# Vanilla+ defensive armour enchantments adapted for Minecraft 1.12.2.
+# Rarity and activation balancing remain intentionally unassigned.
+# Effects are catalogue metadata; runtime effect handlers are not active yet.
+
 category: armour
-enchantments: {}
+enchantments:
+
+  aura:
+    display-name: Aura
+    maximum-level: 3
+    description: Reduces damage taken by nearby players.
+    rarity: UNASSIGNED
+    applicable-items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, GOLD_HELMET, GOLD_CHESTPLATE, GOLD_LEGGINGS, GOLD_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      affects-nearby-allies: true
+      stacking: CONFIGURABLE
+
+  end_affinity:
+    display-name: End Affinity
+    maximum-level: 3
+    description: Reduces damage received while in the End.
+    rarity: UNASSIGNED
+    applicable-items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, GOLD_HELMET, GOLD_CHESTPLATE, GOLD_LEGGINGS, GOLD_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
+    incompatible-with: []
+    activation: {type: DEFENSE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      world: THE_END
+
+  escape:
+    display-name: Escape
+    maximum-level: 2
+    description: Grants a short burst of speed after taking damage.
+    rarity: UNASSIGNED
+    applicable-items: [LEATHER_BOOTS, CHAINMAIL_BOOTS, IRON_BOOTS, GOLD_BOOTS, DIAMOND_BOOTS]
+    incompatible-with: []
+    activation: {type: DEFENSE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      short-duration: true
+
+  feather_step:
+    display-name: Feather Step
+    maximum-level: 5
+    description: Has a chance to cancel fall damage.
+    rarity: UNASSIGNED
+    applicable-items: [LEATHER_BOOTS, CHAINMAIL_BOOTS, IRON_BOOTS, GOLD_BOOTS, DIAMOND_BOOTS]
+    incompatible-with: []
+    activation: {type: FALL_DAMAGE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      cancels-fall-damage: true
+
+  getaway:
+    display-name: Getaway
+    maximum-level: 3
+    description: Grants a short speed burst when you are critically low on health and take damage.
+    rarity: UNASSIGNED
+    applicable-items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, GOLD_HELMET, GOLD_CHESTPLATE, GOLD_LEGGINGS, GOLD_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
+    incompatible-with: []
+    activation: {type: DEFENSE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      health-threshold-percent: 20
+      short-duration: true
+
+  nether_affinity:
+    display-name: Nether Affinity
+    maximum-level: 3
+    description: Reduces damage received while in the Nether.
+    rarity: UNASSIGNED
+    applicable-items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, GOLD_HELMET, GOLD_CHESTPLATE, GOLD_LEGGINGS, GOLD_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
+    incompatible-with: []
+    activation: {type: DEFENSE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      world: NETHER
+
+  vanish:
+    display-name: Vanish
+    maximum-level: 3
+    description: Has a chance to briefly make you invisible after taking damage; equipped armour remains visible.
+    rarity: UNASSIGNED
+    applicable-items: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS, CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, GOLD_HELMET, GOLD_CHESTPLATE, GOLD_LEGGINGS, GOLD_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
+    incompatible-with: []
+    activation: {type: DEFENSE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      potion-effect: INVISIBILITY
+      hides-armour: false
+
+  waterborne:
+    display-name: Waterborne
+    maximum-level: 1
+    description: Helps you breathe underwater.
+    rarity: UNASSIGNED
+    applicable-items: [LEATHER_HELMET, CHAINMAIL_HELMET, IRON_HELMET, GOLD_HELMET, DIAMOND_HELMET]
+    incompatible-with: []
+    activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
+    effects:
+      underwater-breathing: true
