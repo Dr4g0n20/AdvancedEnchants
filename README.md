@@ -22,14 +22,17 @@ A configurable custom-enchantment plugin for Minecraft 1.12.2.
   - Aura, Vanish, Waterborne, Haste
   - Curse of Breaklessness, Foraging, Infernal Touch, Nether Prospector
   - Blacksmith, Carrot Planter, Replenish
+  - Alacrity, Blast Mining, Auto Reel, Bait
 - Passive effects are refreshed while the relevant enchanted equipment is worn or held.
 - Mining effects preserve silk-touch behaviour for Infernal Touch and only add drops; Curse of Breaklessness cancels the individual block break without consuming durability.
 - Crop replanting requires the appropriate seed item in the player's inventory; Blacksmith can prevent a durability loss.
+- Blast Mining checks each additional block through a break event, skips protected or container blocks, and applies durability and eligible mining XP.
+- Auto Reel uses reflective access to the 1.12.2 fishing-hook retraction method; server-fork compatibility must be verified in a live test.
 - Weapon-focused definitions and offensive combat effects are not part of this implementation.
 
 ## Catalogue status
 
-The Vanilla+ catalogue is being implemented in batches. Some entries remain definitions until their runtime behaviour is added. Rarity assignments and final balancing are still pending.
+All 22 non-weapon Vanilla+ definitions in the current armour and tools catalogue now have runtime behaviour. The weapon catalogue remains intentionally empty. Rarity assignments and final balancing are still pending.
 
 The plugin targets the Spigot/Bukkit 1.12.2 API. Builds verify compilation; live behaviour still needs testing on the target server software.
 
