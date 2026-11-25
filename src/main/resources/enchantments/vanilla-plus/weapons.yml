@@ -207,8 +207,8 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       chance-per-level: 0.10
-            slow-duration-ticks: 100
-            bleed-effect: POISON
+      slow-duration-ticks: 100
+      bleed-effect: POISON
 
   ascend:
     display-name: Ascend
@@ -220,7 +220,7 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       right-click-ability: LEVITATION
-            duration-ticks-per-level: 20
+      duration-ticks-per-level: 20
 
   caffeinated:
     display-name: Caffeinated
@@ -232,8 +232,8 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       requires-sprinting: true
-            potion-effect: SPEED
-            chance-per-level: 0.10
+      potion-effect: SPEED
+      chance-per-level: 0.10
 
   carve:
     display-name: Carve
@@ -245,7 +245,7 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       radius: 3
-            damage-per-level: 1.0
+      damage-per-level: 1.0
 
   charge:
     display-name: Charge
@@ -257,7 +257,7 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       right-click-ability: DASH
-            velocity-per-level: 0.35
+      velocity-per-level: 0.35
 
   curse_of_harmlessness:
     display-name: Curse of Harmlessness
@@ -269,7 +269,7 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       chance-per-level: 0.10
-            cancels-damage: true
+      cancels-damage: true
 
   drain:
     display-name: Drain
@@ -281,7 +281,7 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       healing-fraction-per-level: 0.03
-            maximum-healing: 2.0
+      maximum-healing: 2.0
 
   enderbane:
     display-name: Enderbane
@@ -293,7 +293,7 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       bonus-damage-per-level: 0.15
-            targets: [ENDERMAN, ENDER_DRAGON]
+      targets: [ENDERMAN, ENDER_DRAGON]
 
   fuddle:
     display-name: Fuddle
@@ -305,7 +305,7 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       chance-per-level: 0.08
-            shuffles-hotbar: true
+      shuffles-hotbar: true
 
   ninja:
     display-name: Ninja
@@ -317,7 +317,7 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       bonus-damage-per-level: 0.15
-            requires-sneaking: true
+      requires-sneaking: true
 
   repel:
     display-name: Repel
@@ -329,7 +329,7 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       chance-per-level: 0.10
-            knockback: true
+      knockback: true
 
   shura:
     display-name: Shura
@@ -341,7 +341,7 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       bonus-critical-damage-per-level: 0.15
-            health-threshold: 0.50
+      health-threshold: 0.50
 
   thor:
     display-name: Thor
@@ -353,7 +353,7 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       chance-per-level: 0.05
-            bonus-damage-per-level: 1.0
+      bonus-damage-per-level: 1.0
 
   postpone:
     display-name: Postpone
