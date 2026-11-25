@@ -44,7 +44,7 @@ This is the initial project scaffold. It currently includes:
 - Definition metadata for rarity, activation type, chance, cooldown, item compatibility, conflicts, and effect settings.
 - Preservation of pre-existing localized-name metadata.
 
-The enchantment YAML files are currently templates; the full Vanilla+ catalogue and its effect handlers still need to be added. Anvil replacement, acquisition systems, and the guidebook are also not implemented yet.
+The catalogue now includes an initial set of defensive armour and non-combat tool/fishing definitions, adapted for Minecraft 1.12.2. Weapon-focused definitions and combat effect handlers are not part of this implementation. Rarity assignments and activation balancing remain pending. The YAML files currently describe definitions only; runtime effect handlers, anvil replacement, acquisition systems, and the guidebook are not implemented yet.
 
 ## Building
 
