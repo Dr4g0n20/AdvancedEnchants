@@ -145,7 +145,8 @@ enchantments:
     incompatible-with: []
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
-      poison-duration-per-level: 20
+      chance-per-level: 0.15
+      cloud-duration-ticks-per-level: 20
       spread-radius: 3
 
   explosive:
@@ -183,6 +184,7 @@ enchantments:
     activation: {type: PASSIVE, chance: 100.0, cooldown-seconds: 0}
     effects:
       potion-effect: SLOW
+      chance-per-level: 0.15
       duration-ticks-per-level: 20
 
   multi_shot:
