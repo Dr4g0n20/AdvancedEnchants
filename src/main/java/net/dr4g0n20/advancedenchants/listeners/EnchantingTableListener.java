@@ -53,7 +53,9 @@ public final class EnchantingTableListener implements Listener {
             }
         }
         int customCount = ItemEnchantmentStorage.getEnchantments(item).size();
-        int targetCount = Math.max(2, vanillaCount + customCount);
+        int minimumTotal = Math.max(1, plugin.getConfig().getInt(
+                "acquisition.enchanting-table.minimum-total-enchantments", 2));
+        int targetCount = Math.max(minimumTotal, vanillaCount + customCount);
 
         int fourEnchantments = plugin.getConfig().getInt(
                 "acquisition.enchanting-table.four-enchantment-target", 4);
