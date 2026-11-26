@@ -20,7 +20,9 @@ feedback:
 
 enchantments:
   load-vanilla-plus: true
-\n\n# Custom enchantment acquisition.
+
+
+# Custom enchantment acquisition.
 # Every successful table result is supplemented to at least 2 total enchantments.
 # The highest table option can instead target 4 total enchantments.
 acquisition:
