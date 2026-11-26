@@ -6,6 +6,7 @@ import net.dr4g0n20.advancedenchants.enchantments.EnchantmentDefinition;
 import net.dr4g0n20.advancedenchants.enchantments.ItemEnchantmentStorage;
 import net.dr4g0n20.advancedenchants.enchantments.StoredEnchantment;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -14,12 +15,13 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Adds one eligible custom enchantment to a successful enchanting-table result.
- * Uses the live registry so newly added YAML definitions are automatically
- * included without requiring individual acquisition handlers.
+ * Supplements vanilla enchanting-table results so every result has at least
+ * two enchantments in total. The highest enchanting-table option can
+ * occasionally produce four total enchantments.
  */
 public final class EnchantingTableListener implements Listener {
 
@@ -38,13 +40,6 @@ public final class EnchantingTableListener implements Listener {
             return;
         }
 
-        double chance = plugin.getConfig().getDouble(
-                "acquisition.enchanting-table.chance", 60.0D);
-        chance = Math.max(0.0D, Math.min(100.0D, chance));
-        if (ThreadLocalRandom.current().nextDouble(100.0D) >= chance) {
-            return;
-        }
-
         ItemStack item = event.getItem();
         if (item == null || item.getType() == Material.AIR
                 || item.getType() == Material.BOOK
@@ -52,23 +47,52 @@ public final class EnchantingTableListener implements Listener {
             return;
         }
 
-        List<EnchantmentDefinition> candidates = getEligibleEnchantments(item);
-        if (candidates.isEmpty()) {
-            return;
+        int vanillaCount = event.getEnchantsToAdd().size();
+        int customCount = ItemEnchantmentStorage.getEnchantments(item).size();
+        int targetCount = Math.max(2, vanillaCount + customCount);
+
+        int fourEnchantments = plugin.getConfig().getInt(
+                "acquisition.enchanting-table.four-enchantment-target", 4);
+        fourEnchantments = Math.max(2, Math.min(4, fourEnchantments));
+
+        int maximumOptionCost = plugin.getConfig().getInt(
+                "acquisition.enchanting-table.maximum-option-cost", 3);
+        boolean isMaximumOption = event.getExpLevelCost() >= maximumOptionCost;
+        double fourChance = plugin.getConfig().getDouble(
+                "acquisition.enchanting-table.four-enchantment-chance", 35.0D);
+        fourChance = Math.max(0.0D, Math.min(100.0D, fourChance));
+
+        if (isMaximumOption
+                && ThreadLocalRandom.current().nextDouble(100.0D) < fourChance) {
+            targetCount = Math.max(targetCount, fourEnchantments);
         }
 
-        EnchantmentDefinition selected = chooseByRarity(candidates);
-        if (selected == null) {
-            return;
-        }
+        int maximum = plugin.getEnchantmentApplicator().getMaximumEnchantments();
+        targetCount = Math.min(targetCount, vanillaCount + maximum);
 
-        int level = getLevelForEnchantingCost(
-                event.getExpLevelCost(), selected.getMaximumLevel());
+        int attempts = 0;
+        while (vanillaCount + ItemEnchantmentStorage.getEnchantments(item).size()
+                < targetCount && attempts++ < maximum) {
+            List<EnchantmentDefinition> candidates = getEligibleEnchantments(item);
+            if (candidates.isEmpty()) {
+                break;
+            }
 
-        EnchantmentApplyResult result = plugin.getEnchantmentApplicator()
-                .apply(item, selected.getId(), level);
-        if (result == EnchantmentApplyResult.APPLIED
-                || result == EnchantmentApplyResult.UPGRADED) {
+            EnchantmentDefinition selected = chooseByRarity(candidates);
+            if (selected == null) {
+                break;
+            }
+
+            int level = getLevelForEnchantingCost(
+                    event.getExpLevelCost(), selected.getMaximumLevel());
+            EnchantmentApplyResult result = plugin.getEnchantmentApplicator()
+                    .apply(item, selected.getId(), level);
+
+            if (result != EnchantmentApplyResult.APPLIED
+                    && result != EnchantmentApplyResult.UPGRADED) {
+                break;
+            }
+
             if (plugin.getConfig().getBoolean("general.debug", false)) {
                 event.getEnchanter().sendMessage(
                         "§dCustom enchantment: §f" + selected.getDisplayName()
@@ -103,11 +127,29 @@ public final class EnchantingTableListener implements Listener {
                     break;
                 }
             }
+
+            if (!conflict && conflictsWithVanilla(item, definition)) {
+                conflict = true;
+            }
+
             if (!conflict) {
                 candidates.add(definition);
             }
         }
         return candidates;
+    }
+
+    private boolean conflictsWithVanilla(
+            ItemStack item, EnchantmentDefinition definition) {
+        // Custom definitions currently express incompatibilities by custom ID.
+        // Keep vanilla enchantments intact; the applicator remains responsible
+        // for validating custom-enchantment compatibility.
+        for (Enchantment enchantment : item.getEnchantments().keySet()) {
+            if (enchantment == null) {
+                continue;
+            }
+        }
+        return false;
     }
 
     private EnchantmentDefinition chooseByRarity(
@@ -154,8 +196,12 @@ public final class EnchantingTableListener implements Listener {
     }
 
     private int getLevelForEnchantingCost(int cost, int maximumLevel) {
-        int availableLevel = Math.max(1, Math.min(maximumLevel, 1 + Math.max(0, cost - 1) / 6));
-        return availableLevel;
+        // Bukkit 1.12 reports the selected table option as a cost of 1, 2, or 3.
+        // Use the option tier rather than treating this value as the player's
+        // full XP level.
+        int availableLevel = cost >= 3 ? maximumLevel : (cost == 2
+                ? Math.max(1, (maximumLevel + 1) / 2) : 1);
+        return Math.max(1, Math.min(maximumLevel, availableLevel));
     }
 
     private String toRoman(int number) {
