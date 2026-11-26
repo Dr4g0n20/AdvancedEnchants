@@ -20,4 +20,13 @@ feedback:
 
 enchantments:
   load-vanilla-plus: true
-\n\n# Custom enchantment acquisition. A custom enchant is added to roughly 3 out of 5\n# successful enchanting-table results, provided a compatible enchantment exists.\nacquisition:\n  enchanting-table:\n    enabled: true\n    chance: 60.0\n
+\n\n# Custom enchantment acquisition.
+# Every successful table result is supplemented to at least 2 total enchantments.
+# The highest table option can instead target 4 total enchantments.
+acquisition:
+  enchanting-table:
+    enabled: true
+    minimum-total-enchantments: 2
+    maximum-option-cost: 3
+    four-enchantment-target: 4
+    four-enchantment-chance: 35.0
