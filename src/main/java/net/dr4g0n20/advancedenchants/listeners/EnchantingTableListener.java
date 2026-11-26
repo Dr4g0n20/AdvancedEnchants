@@ -15,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -47,7 +46,12 @@ public final class EnchantingTableListener implements Listener {
             return;
         }
 
-        int vanillaCount = event.getEnchantsToAdd().size();
+        int vanillaCount = item.getEnchantments().size();
+        for (Enchantment added : event.getEnchantsToAdd().keySet()) {
+            if (!item.getEnchantments().containsKey(added)) {
+                vanillaCount++;
+            }
+        }
         int customCount = ItemEnchantmentStorage.getEnchantments(item).size();
         int targetCount = Math.max(2, vanillaCount + customCount);
 
@@ -128,28 +132,11 @@ public final class EnchantingTableListener implements Listener {
                 }
             }
 
-            if (!conflict && conflictsWithVanilla(item, definition)) {
-                conflict = true;
-            }
-
             if (!conflict) {
                 candidates.add(definition);
             }
         }
         return candidates;
-    }
-
-    private boolean conflictsWithVanilla(
-            ItemStack item, EnchantmentDefinition definition) {
-        // Custom definitions currently express incompatibilities by custom ID.
-        // Keep vanilla enchantments intact; the applicator remains responsible
-        // for validating custom-enchantment compatibility.
-        for (Enchantment enchantment : item.getEnchantments().keySet()) {
-            if (enchantment == null) {
-                continue;
-            }
-        }
-        return false;
     }
 
     private EnchantmentDefinition chooseByRarity(
