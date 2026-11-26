@@ -8,7 +8,7 @@ import net.dr4g0n20.advancedenchants.enchantments.EnchantmentApplicator;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentActivationService;
 import net.dr4g0n20.advancedenchants.enchantments.EnchantmentCooldownManager;
 import net.dr4g0n20.advancedenchants.enchantments.PassiveEnchantmentTask;
-import net.dr4g0n20.advancedenchants.listeners.EnchantmentTriggerListener;
+import net.dr4g0n20.advancedenchants.listeners.EnchantmentTriggerListener;\nimport net.dr4g0n20.advancedenchants.listeners.EnchantingTableListener;
 import net.dr4g0n20.advancedenchants.listeners.CombatLoggingListener;
 import net.dr4g0n20.advancedenchants.listeners.AuraListener;
 import net.dr4g0n20.advancedenchants.listeners.BlockDropEnchantmentListener;
