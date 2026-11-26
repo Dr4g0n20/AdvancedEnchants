@@ -60,6 +60,7 @@ public final class AdvancedEnchantsPlugin extends JavaPlugin {
         registerCommands();
         Bukkit.getPluginManager().registerEvents(
                 new EnchantmentTriggerListener(activationService), this);
+        Bukkit.getPluginManager().registerEvents(new EnchantingTableListener(this), this);
         Bukkit.getPluginManager().registerEvents(new GuidebookListener(this), this);
         Bukkit.getPluginManager().registerEvents(new CombatLoggingListener(this), this);
         Bukkit.getPluginManager().registerEvents(new AuraListener(), this);
